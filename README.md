@@ -1,5 +1,5 @@
-# Welcome to GitHub Desktop!
+管院、總圖、醉月湖、新體、計中、傅鐘、社科院、法學院、文學院、電資、水源、小福、活大、校門、男宿、女宿、機會、命運、社科圖、台大牧場、理學院、醫學院
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
+人數:2-4
 
-Write your name on line 6, save it, and then head back to GitHub Desktop.
+獲勝條件:25學分
