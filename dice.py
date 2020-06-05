@@ -1,11 +1,11 @@
 import tkinter as tk
 import random
 
-window = tk.Tk()  # 主視窗
-window.geometry("350x350")
-window.title("骰子")
+Dice = tk.Tk()  # 主視窗
+Dice.geometry("350x350")
+Dice.title("骰子")
 
-label = tk.Label(window, text = "", font = ("Helvetica", 300))
+label = tk.Label(Dice, text = "", font = ("Helvetica", 300))
 
 def roll_dice():
     dice = ["\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"]
@@ -28,7 +28,7 @@ def roll_dice():
     label.pack()
 
 
-button = tk.Button(window, text = "擲骰子", height = 5, width = 15, foreground = "red", command = roll_dice)
+button = tk.Button(Dice, text = "擲骰子", height = 5, width = 15, foreground = "red", command = roll_dice)
 button.pack()
 
-window.mainloop()
+Dice.mainloop()
