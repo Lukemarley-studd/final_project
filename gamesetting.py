@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 import tkinter.font as tkfont
 from tkinter import ttk
 
+chooseplayerdict = dict()
 class Window(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
@@ -11,45 +12,47 @@ class Window(tk.Frame):
 
 
     def create_widgets(self):
-		
         #建立物件
         font1 = tkfont.Font(size = 32, family = "Hei")
-        self.space = tk.Label(self, height = 1, width = 1, text = ' ', bg = 'black')
+        self.space = tk.Label(self, height = 1, width = 1, text = ' ')
+        self.space2 = tk.Label(self, height = 1, width = 20, text = '')
         self.png1 = ImageTk.PhotoImage(file='1.png')
-        self.lb1 = tk.Label(self, height = 200, width = 450, image = self.png1, bg = 'black')#台大大富翁
+        self.lb1 = tk.Label(self, height = 350, width = 750, image = self.png1)#台大大富翁
         self.png2 = ImageTk.PhotoImage(file='2.png')
-        self.lb2 = tk.Label(self, height = 80, width = 700, image = self.png2, bg = 'black')#welcome to ntu
-        self.numofuser = tk.Label(self, height = 1, width = 15, font = font1, text = "請選擇玩家人數：", bg = 'black', fg = 'white')
+        self.lb2 = tk.Label(self, height = 150, width = 700, image = self.png2)#welcome to ntu
+        self.numofuser = tk.Label(self, height = 1, width = 15, font = font1, text = "請選擇玩家人數：")
         radiovalue = tk.IntVar()
-        self._2p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "2人", variable = radiovalue, value = 2, command = self.click2users, bg = 'black', fg = 'white')
-        self._3p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "3人", variable = radiovalue, value = 3, command = self.click3users, bg = 'black', fg = 'white')
-        self._4p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "4人", variable = radiovalue, value = 4, command = self.click4users, bg = 'black', fg = 'white')
-        self.player1 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 1", bg = 'black', fg = 'white')
-        self.player2 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 2", bg = 'black', fg = 'white')
-        self.player3 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 3", bg = 'black', fg = 'white')
-        self.player4 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 4", bg = 'black', fg = 'white')
-        playerlist1 = [' ★ ', ' ❤ ', ' ✿ ', ' 😀 ']
-        playerlist2 = [' ★ ', ' ❤ ', ' ✿ ', ' 😀 ']
-        playerlist3 = [' ★ ', ' ❤ ', ' ✿ ', ' 😀 ']
-        playerlist4 = [' ★ ', ' ❤ ', ' ✿ ', ' 😀 ']
-        self.chooseplayer1 = ttk.Combobox(self, values = playerlist1, state = 'readonly')
-        self.chooseplayer2 = ttk.Combobox(self, values = playerlist2, state = 'readonly')
-        self.chooseplayer3 = ttk.Combobox(self, values = playerlist3, state = 'readonly')
-        self.chooseplayer4 = ttk.Combobox(self, values = playerlist4, state = 'readonly')
-        self.startbtn = tk.Button(self, text = '開始！', bg = 'black', font = font1, fg = 'white', command = self.start)  # 開始的按鈕
+        self._2p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "2人", variable = radiovalue, value = 2, command = self.click2users)
+        self._3p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "3人", variable = radiovalue, value = 3, command = self.click3users)
+        self._4p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "4人", variable = radiovalue, value = 4, command = self.click4users)
+        self.player1 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 1")
+        self.player2 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 2")
+        self.player3 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 3")
+        self.player4 = tk.Label(self, height = 1, width = 10, font = font1, text = "玩家 4")
+        global playerlist
+        playerlist = [' ★ ', ' ❤ ', ' ✿ ', ' 😀 ']
+        self.chooseplayer1 = ttk.Combobox(self, values = playerlist, state = 'readonly')
+        self.chooseplayer1.bind('<<ComboboxSelected>>', self.comboclick1)
+        self.chooseplayer2 = ttk.Combobox(self, values = playerlist, state = 'readonly')
+        self.chooseplayer2.bind('<<ComboboxSelected>>', self.comboclick2)
+        self.chooseplayer3 = ttk.Combobox(self, values = playerlist, state = 'readonly')
+        self.chooseplayer3.bind('<<ComboboxSelected>>', self.comboclick3)
+        self.chooseplayer4 = ttk.Combobox(self, values = playerlist, state = 'readonly')
+        self.chooseplayer4.bind('<<ComboboxSelected>>', self.comboclick4)
+        self.startbtn = tk.Button(self, text = '開始！', bg = 'black', font = font1, command = self.start)  # 開始的按鈕
 
         #指定位置
         full = tk.NE + tk.SW
         up = tk.NE + tk.NW
-        self.lb1.grid(row = 40, column = 0, columnspan = 5)
-        self.lb2.grid(row = 41, column = 0, columnspan = 5, rowspan = 10)
+        self.lb1.grid(row = 40, column = 1, columnspan = 4)
+        self.lb2.grid(row = 41, column = 1, columnspan = 5, rowspan = 10)
         self.numofuser.grid(row = 80, column = 0, sticky = full)
         self._2p.grid(row = 80, column = 2, sticky = full)
         self._3p.grid(row = 80, column = 3, sticky = full)
         self._4p.grid(row = 80, column = 4, sticky = full)
         self.startbtn.grid(row = 90, column = 2, columnspan = 1)
         self.space.grid(row = 88, column = 0, rowspan = 1)
-
+        self.space2.grid(row = 40, column = 6, columnspan = 3)
 
         #定義command
     def click2users(self):
@@ -61,6 +64,8 @@ class Window(tk.Frame):
         self.chooseplayer3.grid_forget()
         self.player4.grid_forget()
         self.choosecolor4.grid_forget()
+        global n
+        n = 2
     def click3users(self):
         self.player1.grid(row = 82, column = 1)
         self.chooseplayer1.grid(row = 83, column = 1)
@@ -70,6 +75,8 @@ class Window(tk.Frame):
         self.chooseplayer3.grid(row = 83, column = 3)
         self.player4.grid_forget()
         self.chooseplayer4.grid_forget()
+        global n
+        n = 3
     def click4users(self):
         self.player1.grid(row = 82, column = 1)
         self.chooseplayer1.grid(row = 83, column = 1)
@@ -79,15 +86,78 @@ class Window(tk.Frame):
         self.chooseplayer3.grid(row = 83, column = 3)
         self.player4.grid(row = 82, column = 4)
         self.chooseplayer4.grid(row = 83, column = 4)
-        
+        global n
+        n = 4
+
+
+    def comboclick1(self, event):
+        p1label = self.chooseplayer1.get()
+        self.playerlabel1 = tk.Label(self, text = p1label)
+        chooseplayerdict['player1'] = p1label
+    def comboclick2(self, event):
+        p2label = self.chooseplayer2.get()
+        self.playerlabel2 = tk.Label(self, text = p2label)
+        chooseplayerdict['player2'] = p2label
+    def comboclick3(self, event):
+        p3label = self.chooseplayer3.get()
+        self.playerlabel3 = tk.Label(self, text = p3label)
+        chooseplayerdict['player3'] = p3label
+    def comboclick4(self, event):
+        p4label = self.chooseplayer4.get()
+        self.playerlabel4 = tk.Label(self, text = p4label)
+        chooseplayerdict['player4'] = p4label
+
+    def check_repeated_and_empty(self, chooseplayerdict):
+        players = list(chooseplayerdict.values())
+        for i in players:
+            if players.count(i) != 1:
+                return False
+            else:
+                return True
+
+        if n == 2:
+            if len(chooseplayerdict) != 2:
+                return False
+            else:
+                return True
+        elif n == 3:
+            if len(chooseplayerdict) != 3:
+                return False
+            else:
+                return True
+        else:  # n == 4
+            if len(chooseplayerdict) != 4:
+                return False
+            else:
+                return True
+
     def start(self):  # 開始遊戲的指令
-        global newframe
-        mywindow.destroy()  # 刪掉起始畫面
-        newframe = NewFrame()  # 創立（接）遊戲開始的畫面
-        newframe.configure(bg='black')
-        newframe.mainloop()
+        if self.check_repeated_and_empty(chooseplayerdict) == True:
+            global newframe
+            mywindow.destroy()  # 刪掉起始畫面
+            newframe = NewFrame()  # 創立（接）遊戲開始的畫面
+            newframe.configure(bg='black')
+            newframe.mainloop()
+        else:
+            global warning
+            warning = Warning()
 
 
+class Warning(tk.Frame):
+    def __init__(self):
+        tk.Frame.__init__(self)
+        self.grid()
+        self.create_widgets()
+    def create_widgets(self):
+        font1 = tkfont.Font(size = 32, family = "Hei")
+        self.lb = tk.Label(self, height = 6, width = 50, font = font1, text = "請重新選擇玩家\n(因重複選取或未選取)", bg = 'black', fg = 'white')
+        self.btn = tk.Button(self, text = '確定', bg = 'black', font = font1, command = self.confirm)
+        full = tk.NE + tk.SW
+        self.lb.grid(row = 1, column = 1, sticky = full)
+        self.btn.grid(row = 3, column = 1, sticky = full)
+
+    def confirm(self):
+        warning.destroy()
 
 class NewFrame(tk.Frame):  # 遊戲開始的畫面
     def __init__(self):
@@ -212,7 +282,6 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
 
 mywindow = Window()
 mywindow.master.title("台大大富翁")
-mywindow.configure(bg = 'black')
 
 mywindow.mainloop()
 
