@@ -4,6 +4,7 @@ import tkinter.font as tkfont
 from tkinter import ttk
 
 chooseplayerdict = dict()
+n = 0
 class Window(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
@@ -39,7 +40,7 @@ class Window(tk.Frame):
         self.chooseplayer3.bind('<<ComboboxSelected>>', self.comboclick3)
         self.chooseplayer4 = ttk.Combobox(self, values = playerlist, state = 'readonly')
         self.chooseplayer4.bind('<<ComboboxSelected>>', self.comboclick4)
-        self.startbtn = tk.Button(self, text = '開始！', bg = 'black', font = font1, command = self.start)  # 開始的按鈕
+        self.startbtn = tk.Button(self, text = '開始！', font = font1, command = self.start)  # 開始的按鈕
 
         #指定位置
         full = tk.NE + tk.SW
@@ -63,7 +64,7 @@ class Window(tk.Frame):
         self.player3.grid_forget()
         self.chooseplayer3.grid_forget()
         self.player4.grid_forget()
-        self.choosecolor4.grid_forget()
+        self.chooseplayer4.grid_forget()
         global n
         n = 2
     def click3users(self):
@@ -110,33 +111,32 @@ class Window(tk.Frame):
     def check_repeated_and_empty(self, chooseplayerdict):
         players = list(chooseplayerdict.values())
         for i in players:
-            if players.count(i) != 1:
+            if players.count(i) != 1 or len(players) != n:
                 return False
             else:
                 return True
 
-        if n == 2:
-            if len(chooseplayerdict) != 2:
-                return False
-            else:
-                return True
-        elif n == 3:
-            if len(chooseplayerdict) != 3:
-                return False
-            else:
-                return True
-        else:  # n == 4
-            if len(chooseplayerdict) != 4:
-                return False
-            else:
-                return True
+        # if n == 2:
+            # if len(chooseplayerdict) != 2:
+                # return False
+            # else:
+                # return True
+        # elif n == 3:
+            # if len(chooseplayerdict) != 3:
+                # return False
+            # else:
+                # return True
+        # else:  # n == 4
+            # if len(chooseplayerdict) != 4:
+                # return False
+            # else:
+                # return True
 
     def start(self):  # 開始遊戲的指令
         if self.check_repeated_and_empty(chooseplayerdict) == True:
             global newframe
             mywindow.destroy()  # 刪掉起始畫面
             newframe = NewFrame()  # 創立（接）遊戲開始的畫面
-            newframe.configure(bg='black')
             newframe.mainloop()
         else:
             global warning
@@ -149,9 +149,9 @@ class Warning(tk.Frame):
         self.grid()
         self.create_widgets()
     def create_widgets(self):
-        font1 = tkfont.Font(size = 32, family = "Hei")
-        self.lb = tk.Label(self, height = 6, width = 50, font = font1, text = "請重新選擇玩家\n(因重複選取或未選取)", bg = 'black', fg = 'white')
-        self.btn = tk.Button(self, text = '確定', bg = 'black', font = font1, command = self.confirm)
+        font1 = tkfont.Font(size = 24, family = "Hei")
+        self.lb = tk.Label(self, height = 3, width = 50, font = font1, text = "請重新選擇玩家\n(因重複選取或未選取)")
+        self.btn = tk.Button(self, text = '確定', font = font1, command = self.confirm)
         full = tk.NE + tk.SW
         self.lb.grid(row = 1, column = 1, sticky = full)
         self.btn.grid(row = 3, column = 1, sticky = full)
@@ -164,7 +164,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         tk.Frame.__init__(self)
         self.grid()
         self.create_widgets()
-    def create_widgets(self):#接遊戲開始後的畫面
+    def create_widgets(self):  # 接遊戲開始後的畫面
+
+        # 外圈圖片
         self.picture00Image=tk.PhotoImage(file="C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\校門-0000.gif")
         self.picture00= tk.Label(self, height=90, width=135, image=self.picture00Image)
         self.picture00.grid(row=0, column=0)
@@ -189,7 +191,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.picture07Image=tk.PhotoImage(file="C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\活大-0000.gif")
         self.picture07= tk.Label(self, height=90, width=135, image=self.picture07Image)
         self.picture07.grid(row=3, column=7)
-        self.picture08= tk.Label(self, height=6, width=20, bg='black')
+        self.picture08= tk.Label(self, height=6, width=20)
         self.picture08.grid(row=4, column=7)
         self.picture09Image=tk.PhotoImage(file="C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\社科院-0000.gif")
         self.picture09= tk.Label(self, height=90, width=135, image=self.picture09Image)
@@ -218,26 +220,35 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.picture17Image=tk.PhotoImage(file="C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\水源-0000.gif")
         self.picture17= tk.Label(self, height=90, width=135, image=self.picture17Image)
         self.picture17.grid(row=2, column=0)
-        self.picture18= tk.Label(self, height=6, width=20, bg='black')
+        self.picture18= tk.Label(self, height=6, width=20)
         self.picture18.grid(row=0, column=1)
-        self.picture19= tk.Label(self, height=6, width=20, bg='black')
+        self.picture19= tk.Label(self, height=6, width=20)
         self.picture19.grid(row=0, column=6)
-        self.picture20= tk.Label(self, height=6, width=20, bg='black')
+        self.picture20= tk.Label(self, height=6, width=20)
         self.picture20.grid(row=1, column=0)
-        self.picture21= tk.Label(self, height=6, width=20, bg='black')
+        self.picture21= tk.Label(self, height=6, width=20)
         self.picture21.grid(row=1, column=7)
-        self.picture22= tk.Label(self, height=6, width=20, bg='black')
+        self.picture22= tk.Label(self, height=6, width=20)
         self.picture22.grid(row=5, column=0)
-        self.picture23= tk.Label(self, height=6, width=20, bg='black')
+        self.picture23= tk.Label(self, height=6, width=20)
         self.picture23.grid(row=5, column=7)
-        self.picture24= tk.Label(self, height=6, width=20, bg='black')
+        self.picture24= tk.Label(self, height=6, width=20)
         self.picture24.grid(row=6, column=1)
-        self.picture25= tk.Label(self, height=6, width=20, bg='black')
+        self.picture25= tk.Label(self, height=6, width=20)
         self.picture25.grid(row=6, column=6)
 
+        # 各地點和在該地點的玩家
         text_list = ['校門\n\n', '管院\n\n', '小福\n\n', '新體\n\n', '法學院\n\n', '文學院\n\n', '電資學院\n\n',
                     '活大\n\n', '機會/命運\n\n', '社科院\n\n', '理學院\n\n', '醫學院\n\n', '宿舍\n\n',
                     '計中\n\n', '總圖\n\n', '醉月湖\n\n', '傅鐘\n\n', '水源校區\n\n']
+        player_loc_dict = {'player1':0, 'player2':0, 'player3':0, 'player4':0}
+        text_list[0] += chooseplayerdict['player1']+chooseplayerdict['player2']
+        if n == 3:
+            text_list[0] += chooseplayerdict['player3']
+        if n == 4:
+            text_list[0] += chooseplayerdict['player3']+chooseplayerdict['player4']
+
+        # 內圈格子
         self.place00 = tk.Label(self, height=5, width=16, bg='sky blue', text=text_list[0], fg='white', font=('Arial', 12))
         self.place00.grid(row=1, column=1)
         self.place01 = tk.Label(self, height=5, width=15, bg='pink2', text=text_list[1], fg='white', font=('Arial', 12))
