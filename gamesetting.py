@@ -14,7 +14,7 @@ class Window(tk.Frame):
 
     def create_widgets(self):
         #建立物件
-        font1 = tkfont.Font(size = 32, family = "Hei")
+        font1 = tkfont.Font(size = 30, family = "Hei")
         self.space = tk.Label(self, height = 1, width = 1, text = ' ')
         self.space2 = tk.Label(self, height = 1, width = 20, text = '')
         self.png1 = ImageTk.PhotoImage(file='1.png')
@@ -181,8 +181,8 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             self.step_num = 5
         elif self.steps == "\u2685":
             self.step_num = 6
-        self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 300))
-        self.label.place(x = 300, y = 300)
+        self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 150))
+        self.label.place(x = 640, y = 220)
 
     def create_widgets(self):  # 接遊戲開始後的畫面
 
@@ -347,8 +347,8 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         """
         擲骰子按紐
         """
-        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 15, foreground = "red", command = self.roll_dice)
-        self.dice_button.place(x = 250, y = 150)
+        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 9, foreground = "white", bg = "pink2", font=('Arial', 12), command = self.roll_dice)
+        self.dice_button.place(x = 530, y = 280)
         # pass
         #以下測試用
         #self.png1 = ImageTk.PhotoImage(file='1.png')
