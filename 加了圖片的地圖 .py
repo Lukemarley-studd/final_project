@@ -155,7 +155,6 @@ class Game(tk.Frame):
         self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
         self.score_lb4.place(x = 320, y = 380)
         
-game = Game()
-game.mainloop()
+
 game = Game()
 game.mainloop()
