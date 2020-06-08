@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import tkinter.font as tkfont
 from tkinter import ttk
+import random
 
 chooseplayerdict = dict()
 n = 0
@@ -10,18 +11,6 @@ class Window(tk.Frame):
         tk.Frame.__init__(self)
         self.grid()
         self.create_widgets()
-    
-    def roll_dice(self):
-        self.dice_1 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\one.gif")
-        self.dice_2 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\two.gif")
-        self.dice_3 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\three.gif")
-        self.dice_4 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\four.gif")
-        self.dice_5 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\five.gif")
-        self.dice_6 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\six.gif")
-        self.dice_pool = [self.dice_1, self.dice_2, self.dice_3, self.dice_4, self.dice_5, self.dice_6]
-        self.step_num = f"{random.choice(self.dice_pool)}"
-        self.dice_picture = tk.Label(self, height = 100, width = 100, image = self.step_num)
-        self.dice_picture.place(x = 400, y = 250)
 
     def create_widgets(self):
         #建立物件
@@ -175,6 +164,19 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         tk.Frame.__init__(self)
         self.grid()
         self.create_widgets()
+
+    def roll_dice(self):
+        self.dice_1 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\one.gif")
+        self.dice_2 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\two.gif")
+        self.dice_3 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\three.gif")
+        self.dice_4 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\four.gif")
+        self.dice_5 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\five.gif")
+        self.dice_6 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\six.gif")
+        self.dice_pool = [self.dice_1, self.dice_2, self.dice_3, self.dice_4, self.dice_5, self.dice_6]
+        self.step_num = f"{random.choice(self.dice_pool)}"
+        self.dice_picture = tk.Label(self, height = 100, width = 100, image = self.step_num)
+        self.dice_picture.place(x = 400, y = 250)
+
     def create_widgets(self):  # 接遊戲開始後的畫面
 
         # 外圈圖片
@@ -338,7 +340,8 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         """
         擲骰子按紐
         """
-        self.dice_button = tk.Button(text = "ROLL", height = 5, width = 15, foreground = "red", command = roll_dice)
+        self.dice_button = tk.Button(text = "ROLL", height = 5, width = 15, foreground = "red", command = self.roll_dice)
+        self.dice_button.place(x = 250, y = 150)
         # pass
         #以下測試用
         #self.png1 = ImageTk.PhotoImage(file='1.png')
