@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import tkinter.font as tkfont
 from tkinter import ttk
+import random
 
 chooseplayerdict = dict()
 n = 0
