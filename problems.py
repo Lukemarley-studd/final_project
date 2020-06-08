@@ -1,4 +1,4 @@
-import tkinter as tk
+import tkinter as tttk
 import random
 
 
@@ -81,12 +81,20 @@ class Problems:
             master(1, problem, correct_ans)
         else:
             chance_destiny = self.problem_list[location][number]
-            master(0, chance_destiny)  
+            master(0, chance_destiny)
+            if number == 0 or 1:
+                score = 2
+            elif number == 2 or 3:
+                score = -1
+                # 加進暫停list
+            else:
+                score = -2
+            return score
 
 
-class ProblemWindow(tk.Frame):  # 彈出問題的視窗
+class ProblemWindow(tttk.Frame):  # 彈出問題的視窗
     def __init__(self, text, ans, root):
-        tk.Frame.__init__(self)
+        tttk.Frame.__init__(self)
         self.text = text
         self.ans = ans
         self.grid()
@@ -94,85 +102,93 @@ class ProblemWindow(tk.Frame):  # 彈出問題的視窗
         self.root = root
 
     def createWidgets(self):
-        self.buttonA = tk.Button(self, height = 4, width = 6, bg = "sky blue2", fg='white', font = "20", text = "A", command = self.click_buttonA)
-        self.buttonB = tk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "B", command = self.click_buttonB)
-        self.buttonC = tk.Button(self, height = 4, width = 6, bg = "sky blue2", fg='white', font = "20", text = "C", command = self.click_buttonC)
-        self.buttonD = tk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "D", command = self.click_buttonD)
-        self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = self.text)
-        self.buttonA.grid(row = 1, column = 0, sticky = tk.NE + tk.SW)
-        self.buttonB.grid(row = 1, column = 1, sticky = tk.NE + tk.SW)
-        self.buttonC.grid(row = 1, column = 2, sticky = tk.NE + tk.SW)
-        self.buttonD.grid(row = 1, column = 3, sticky = tk.NE + tk.SW)
-        self.lbProblem.grid(row = 0, column = 0, columnspan = 4, sticky = tk.NE + tk.SW)
+        self.buttonA = tttk.Button(self, height = 4, width = 6, bg = "sky blue2", fg='white', font = "20", text = "A", command = self.click_buttonA)
+        self.buttonB = tttk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "B", command = self.click_buttonB)
+        self.buttonC = tttk.Button(self, height = 4, width = 6, bg = "sky blue2", fg='white', font = "20", text = "C", command = self.click_buttonC)
+        self.buttonD = tttk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "D", command = self.click_buttonD)
+        self.lbProblem = tttk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = self.text)
+        self.buttonA.grid(row = 1, column = 0, sticky = tttk.NE + tttk.SW)
+        self.buttonB.grid(row = 1, column = 1, sticky = tttk.NE + tttk.SW)
+        self.buttonC.grid(row = 1, column = 2, sticky = tttk.NE + tttk.SW)
+        self.buttonD.grid(row = 1, column = 3, sticky = tttk.NE + tttk.SW)
+        self.lbProblem.grid(row = 0, column = 0, columnspan = 4, sticky = tttk.NE + tttk.SW)
 
     def click_buttonA(self):
         self.destroy()
         if self.ans == "A":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
+            score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
+            score = 0
 
     def click_buttonB(self):
         self.destroy()
         if self.ans == "B":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
+            score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
+            score = 0
 
     def click_buttonC(self):
         self.destroy()
         if self.ans == "C":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分", )
+            score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
+            score = 0
 
     def click_buttonD(self):
         self.destroy()
         if self.ans == "D":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
+            score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
+            score = 0
 
 
-class ShowResult(tk.Frame):  # 切換作答結果頁面
+class ShowResult(tttk.Frame):  # 切換作答結果頁面
     def __init__(self, result, root):
-        tk.Frame.__init__(self)
+        tttk.Frame.__init__(self)
         self.text = result
         self.grid()
         self.createWidgets()
         self.root = root
 
     def createWidgets(self):
-        self.lbResult = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "40", text = self.text)
-        self.buttonSure = tk.Button(self, height = 2, width = 5, bg = "sky blue3", fg='white', font = "20", text = "確認", command = self.click_buttonSure)
-        self.buttonSure.grid(row = 1, column = 0, sticky = tk.NE + tk.SW)
-        self.lbResult.grid(row = 0, column = 0, sticky = tk.NE + tk.SW)
+        self.lbResult = tttk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "40", text = self.text)
+        self.buttonSure = tttk.Button(self, height = 2, width = 5, bg = "sky blue3", fg='white', font = "20", text = "確認", command = self.click_buttonSure)
+        self.buttonSure.grid(row = 1, column = 0, sticky = tttk.NE + tttk.SW)
+        self.lbResult.grid(row = 0, column = 0, sticky = tttk.NE + tttk.SW)
 
     def click_buttonSure(self):
         self.root.destroy()
 
 
-class ChanceDestinyWindow(tk.Frame):  # 彈出機會命運的視窗
+class ChanceDestinyWindow(tttk.Frame):  # 彈出機會命運的視窗
     def __init__(self, text, root):
-        tk.Frame.__init__(self)
+        tttk.Frame.__init__(self)
         self.text = text
         self.grid()
         self.createWidgets()
         self.root = root
 
     def createWidgets(self):
-        self.lbChance = tk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = self.text)
-        self.buttonSure = tk.Button(self, height = 2, width = 5,  bg='pink3', fg='white', font = "20", text = "確認", command = self.click_buttonSure)
-        self.buttonSure.grid(row = 1, column = 0, sticky = tk.NE + tk.SW)
-        self.lbChance.grid(row = 0, column = 0, sticky = tk.NE + tk.SW)
+        self.lbChance = tttk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = self.text)
+        self.buttonSure = tttk.Button(self, height = 2, width = 5,  bg='pink3', fg='white', font = "20", text = "確認", command = self.click_buttonSure)
+        self.buttonSure.grid(row = 1, column = 0, sticky = tttk.NE + tttk.SW)
+        self.lbChance.grid(row = 0, column = 0, sticky = tttk.NE + tttk.SW)
 
     def click_buttonSure(self):
         self.root.destroy()
 
 
-class master(tk.Tk):
+class master(tttk.Tk):
     def __init__(self, frame_class, text1 = None, text2 = None):
-        tk.Tk.__init__(self)
+        tttk.Tk.__init__(self)
         if frame_class == 1:
             self._frame = ProblemWindow(text1, text2, self)
             self.title("Problem Window")
@@ -190,4 +206,5 @@ class master(tk.Tk):
 
 problems = Problems()
 for i in range(17):
-    problems.call_a_problem(i)
+    score = problems.call_a_problem(i)
+    print(score)
