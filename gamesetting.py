@@ -166,16 +166,23 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.create_widgets()
 
     def roll_dice(self):
-        self.dice_1 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\one.gif")
-        self.dice_2 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\two.gif")
-        self.dice_3 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\three.gif")
-        self.dice_4 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\four.gif")
-        self.dice_5 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\five.gif")
-        self.dice_6 = tk.PhotoImage(file = "C:\\Users\\User\\Documents\\GitHub\\final_project\\final圖片\\six.gif")
-        self.dice_pool = [self.dice_1, self.dice_2, self.dice_3, self.dice_4, self.dice_5, self.dice_6]
-        self.step_num = f"{random.choice(self.dice_pool)}"
-        self.dice_picture = tk.Label(self, height = 100, width = 100, image = self.step_num)
-        self.dice_picture.place(x = 400, y = 250)
+        self.dice = ["\u2680", "\u2681", "\u2682", "\u2683", "\u2684", "\u2685"]
+        self.steps = f"{random.choice(self.dice)}"
+        self.step_num = int()
+        if self.steps == "\u2680":
+            self.step_num = 1
+        elif self.steps == "\u2681":
+            self.step_num = 2
+        elif self.steps == "\u2682":
+            self.step_num = 3
+        elif self.steps == "\u2683":
+            self.step_num = 4
+        elif self.steps == "\u2684":
+            self.step_num = 5
+        elif self.steps == "\u2685":
+            self.step_num = 6
+        self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 300))
+        self.label.place(x = 300, y = 300)
 
     def create_widgets(self):  # 接遊戲開始後的畫面
 
@@ -340,7 +347,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         """
         擲骰子按紐
         """
-        self.dice_button = tk.Button(text = "ROLL", height = 5, width = 15, foreground = "red", command = self.roll_dice)
+        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 15, foreground = "red", command = self.roll_dice)
         self.dice_button.place(x = 250, y = 150)
         # pass
         #以下測試用
