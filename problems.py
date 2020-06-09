@@ -82,12 +82,11 @@ class Problems:
         else:
             chance_destiny = self.problem_list[location][number]
             master(0, chance_destiny)
-            if number == 0 or 1:
+            if number <= 1:  # 加2學分
                 score = 2
-            elif number == 2 or 3:
-                score = -1
-                # 加進暫停list
-            else:
+            elif number >= 2 and number <= 3:  # 暫停一回合
+                score = -1  # 加進暫停list
+            else:  # 少2學分
                 score = -2
             return score
 
@@ -117,37 +116,37 @@ class ProblemWindow(tttk.Frame):  # 彈出問題的視窗
         self.destroy()
         if self.ans == "A":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
-            score = 2
+            # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            score = 0
+            # score = 0
 
     def click_buttonB(self):
         self.destroy()
         if self.ans == "B":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
-            score = 2
+            # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            score = 0
+            # score = 0
 
     def click_buttonC(self):
         self.destroy()
         if self.ans == "C":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分", )
-            score = 2
+            # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            score = 0
+            # score = 0
 
     def click_buttonD(self):
         self.destroy()
         if self.ans == "D":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
-            score = 2
+            # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            score = 0
+            # score = 0
 
 
 class ShowResult(tttk.Frame):  # 切換作答結果頁面
