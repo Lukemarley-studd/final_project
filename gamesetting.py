@@ -17,14 +17,10 @@ class Window(tk.Frame):
         font1 = tkfont.Font(size = 30, family = "Hei")
         self.space = tk.Label(self, height = 1, width = 1, text = ' ')
         self.space2 = tk.Label(self, height = 1, width = 20, text = '')
-        png = Image.open('1.png')
-        png = png.resize((499, 169), Image.ANTIALIAS)
-        self.png1 = ImageTk.PhotoImage(png)
-        self.lb1 = tk.Label(self, height = 200, width = 600, image = self.png1)#台大大富翁
-        png = Image.open('2.png')
-        png = png.resize((539, 112), Image.ANTIALIAS)
-        self.png2 = ImageTk.PhotoImage(png)
-        self.lb2 = tk.Label(self, height = 100, width = 600, image = self.png2)#welcome to ntu
+        self.png1 = tk.PhotoImage(file='1.png')
+        self.lb1 = tk.Label(self, height = 300, width = 750, image = self.png1)#台大大富翁
+        self.png2 = tk.PhotoImage(file='2.png')
+        self.lb2 = tk.Label(self, height = 150, width = 750, image = self.png2)#welcome to ntu
         self.numofuser = tk.Label(self, height = 1, width = 15, font = font1, text = "請選擇玩家人數：")
         radiovalue = tk.IntVar()
         self._2p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "2人", variable = radiovalue, value = 2, command = self.click2users)
@@ -45,7 +41,6 @@ class Window(tk.Frame):
         self.chooseplayer4 = ttk.Combobox(self, values = playerlist, state = 'readonly')
         self.chooseplayer4.bind('<<ComboboxSelected>>', self.comboclick4)
         self.startbtn = tk.Button(self, text = '開始！', font = font1, command = self.start)  # 開始的按鈕
-        self.warning = tk.Label(self, height = 1, width = 50, font = font1, text = "請重新選擇玩家(因重複選取或未選取)", bg = 'red4', fg = 'white')
 
         #指定位置
         full = tk.NE + tk.SW
@@ -144,9 +139,10 @@ class Window(tk.Frame):
             newframe = NewFrame()  # 創立（接）遊戲開始的畫面
             newframe.mainloop()
         else:
-            self.warning.grid(row = 27, column = 1, columnspan = 5)
+            global warning
+            warning = Warning()
 
-'''
+
 class Warning(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
@@ -162,7 +158,6 @@ class Warning(tk.Frame):
 
     def confirm(self):
         warning.destroy()
-'''
 
 class NewFrame(tk.Frame):  # 遊戲開始的畫面
     def __init__(self):
