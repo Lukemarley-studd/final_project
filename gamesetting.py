@@ -306,12 +306,20 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.place17 = tk.Label(self, height=5, width=16, bg='pink2', text=text_list[17], fg='white', font=('Arial', 12))
         self.place17.grid(row=2, column=1)
         
+
+
         score_1 = 0
         """
         改變玩家1的學分數
         """
-        
-        self.score_variable_1 = tk.StringVar(self, f'★ credits: {score_1}')
+        if chooseplayerdict['player1'] == ' ★ ':
+            self.score_variable_1 = tk.StringVar(self, f'★ credits: {score_1}')
+        elif chooseplayerdict['player1'] == ' ❤ ':
+            self.score_variable_1 = tk.StringVar(self, f'❤ credits: {score_1}')
+        elif chooseplayerdict['player1'] == ' ✿ ':
+            self.score_variable_1 = tk.StringVar(self, f'✿ credits: {score_1}')
+        elif chooseplayerdict['player1'] == ' 😀 ':
+            self.score_variable_1 = tk.StringVar(self, f'😀 credits: {score_1}')
         self.score_lbl = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_1, font=('Arial', 12))
         self.score_lbl.place(x = 320, y = 230)
         
@@ -319,30 +327,47 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         """
         #改變玩家2的學分數
         """
-        self.score_variable_2 = tk.StringVar(self, f'❤ credits: {score_2}')
+        if chooseplayerdict['player2'] == ' ★ ':
+            self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
+        elif chooseplayerdict['player2'] == ' ❤ ':
+            self.score_variable_2 = tk.StringVar(self, f'❤ credits: {score_2}')
+        elif chooseplayerdict['player2'] == ' ✿ ':
+            self.score_variable_2 = tk.StringVar(self, f'✿ credits: {score_2}')
+        elif chooseplayerdict['player2'] == ' 😀 ':
+            self.score_variable_2 = tk.StringVar(self, f'😀 credits: {score_2}')
         self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
         self.score_lb2.place(x = 320, y = 280)
 
-        #如果有玩家三
-        score_3 = 0
+        if n >= 3:
+            score_3 = 0
         
-        #改變玩家3的學分數
-          
-        self.score_variable_3 = tk.StringVar(self, f'✿ credits: {score_3}')
-        self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
-        self.score_lb3.place(x = 320, y = 330)
+            #改變玩家3的學分數
+            if chooseplayerdict['player3'] == ' ★ ':
+                self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
+            elif chooseplayerdict['player3'] == ' ❤ ':
+                self.score_variable_3 = tk.StringVar(self, f'❤ credits: {score_3}')
+            elif chooseplayerdict['player3'] == ' ✿ ':
+                self.score_variable_3 = tk.StringVar(self, f'✿ credits: {score_3}')
+            elif chooseplayerdict['player3'] == ' 😀 ':
+                self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
+            self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
+            self.score_lb3.place(x = 320, y = 330)
         
-        """
-        如果有玩家四
-        """
-        
-        score_4 = 0
-        """
-        改變玩家4的學分數
-        """
-        self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
-        self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
-        self.score_lb4.place(x = 320, y = 380)
+            if n == 4:
+                score_4 = 0
+                """
+                改變玩家4的學分數
+                """
+                if chooseplayerdict['player4'] == ' ★ ':
+                    self.score_variable_4 = tk.StringVar(self, f'★ credits: {score_4}')
+                elif chooseplayerdict['player4'] == ' ❤ ':
+                    self.score_variable_4 = tk.StringVar(self, f'❤ credits: {score_4}')
+                elif chooseplayerdict['player4'] == ' ✿ ':
+                    self.score_variable_4 = tk.StringVar(self, f'✿ credits: {score_4}')
+                elif chooseplayerdict['player4'] == ' 😀 ':
+                    self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
+                self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
+                self.score_lb4.place(x = 320, y = 380)
         
         """
         擲骰子按紐
