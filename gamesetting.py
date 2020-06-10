@@ -164,6 +164,8 @@ class Warning(tk.Frame):
         warning.destroy()
 '''
 
+player = 1
+player_loc_dict = {'player1':0, 'player2':0, 'player3':0, 'player4':0}
 class NewFrame(tk.Frame):  # 遊戲開始的畫面
     def __init__(self):
         tk.Frame.__init__(self)
@@ -186,6 +188,31 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             self.step_num = 5
         elif self.steps == "\u2685":
             self.step_num = 6
+        global player
+        global player_loc_dict
+        if player == 1:
+            player_loc_dict['player1'] += self.step_num
+            if player_loc_dict['player1'] > 17:
+                player_loc_dict['player1'] -= 18
+            player += 1
+        elif player == 2:
+            player_loc_dict['player2'] += self.step_num
+            if player_loc_dict['player2'] > 17:
+                player_loc_dict['player2'] -= 18
+            player += 1
+        elif player == 3:
+            player_loc_dict['player3'] += self.step_num
+            if player_loc_dict['player3'] > 17:
+                player_loc_dict['player3'] -= 18
+            player += 1
+        else:
+            player_loc_dict['player4'] += self.step_num
+            if player_loc_dict['player4'] > 17:
+                player_loc_dict['player4'] -= 18
+            player += 1
+        if player > n:
+            player = 1
+        print(player_loc_dict)
         self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 120))
         self.label.place(x = 570, y = 200)
 
@@ -263,52 +290,51 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.picture25.grid(row=6, column=6)
 
         # 各地點和在該地點的玩家
-        text_list = ['校門\n\n', '管院\n\n', '小福\n\n', '新體\n\n', '法學院\n\n', '文學院\n\n', '電資學院\n\n',
+        place_list = ['校門\n\n', '管院\n\n', '小福\n\n', '新體\n\n', '法學院\n\n', '文學院\n\n', '電資學院\n\n',
                     '活大\n\n', '機會/命運\n\n', '社科院\n\n', '理學院\n\n', '醫學院\n\n', '宿舍\n\n',
                     '計中\n\n', '總圖\n\n', '醉月湖\n\n', '傅鐘\n\n', '水源校區\n\n']
-        player_loc_dict = {'player1':0, 'player2':0, 'player3':0, 'player4':0}
-        text_list[0] += chooseplayerdict['player1']+chooseplayerdict['player2']
+        place_list[0] += chooseplayerdict['player1']+chooseplayerdict['player2']
         if n == 3:
-            text_list[0] += chooseplayerdict['player3']
+            place_list[0] += chooseplayerdict['player3']
         if n == 4:
-            text_list[0] += chooseplayerdict['player3']+chooseplayerdict['player4']
+            place_list[0] += chooseplayerdict['player3']+chooseplayerdict['player4']
 
         # 內圈格子
-        self.place00 = tk.Label(self, height=4, width=13, bg='sky blue', text=text_list[0], fg='white', font=('Arial', 12))
+        self.place00 = tk.Label(self, height=4, width=13, bg='sky blue', text=place_list[0], fg='white', font=('Arial', 12))
         self.place00.grid(row=1, column=1)
-        self.place01 = tk.Label(self, height=4, width=12, bg='pink2', text=text_list[1], fg='white', font=('Arial', 12))
+        self.place01 = tk.Label(self, height=4, width=12, bg='pink2', text=place_list[1], fg='white', font=('Arial', 12))
         self.place01.grid(row=1, column=2)
-        self.place02 = tk.Label(self, height=4, width=12, bg='sky blue', text=text_list[2], fg='white', font=('Arial', 12))
+        self.place02 = tk.Label(self, height=4, width=12, bg='sky blue', text=place_list[2], fg='white', font=('Arial', 12))
         self.place02.grid(row=1, column=3)
-        self.place03 = tk.Label(self, height=4, width=12, bg='pink2', text=text_list[3], fg='white', font=('Arial', 12))
+        self.place03 = tk.Label(self, height=4, width=12, bg='pink2', text=place_list[3], fg='white', font=('Arial', 12))
         self.place03.grid(row=1, column=4)
-        self.place04 = tk.Label(self, height=4, width=12, bg='sky blue', text=text_list[4], fg='white', font=('Arial', 12))
+        self.place04 = tk.Label(self, height=4, width=12, bg='sky blue', text=place_list[4], fg='white', font=('Arial', 12))
         self.place04.grid(row=1, column=5)
-        self.place05 = tk.Label(self, height=4, width=13, bg='pink2', text=text_list[5], fg='white', font=('Arial', 12))
+        self.place05 = tk.Label(self, height=4, width=13, bg='pink2', text=place_list[5], fg='white', font=('Arial', 12))
         self.place05.grid(row=1, column=6)
-        self.place06 = tk.Label(self, height=4, width=13, bg='sky blue', text=text_list[6], fg='white', font=('Arial', 12))
+        self.place06 = tk.Label(self, height=4, width=13, bg='sky blue', text=place_list[6], fg='white', font=('Arial', 12))
         self.place06.grid(row=2, column=6)
-        self.place07 = tk.Label(self, height=4, width=13, bg='pink2', text=text_list[7], fg='white', font=('Arial', 12))
+        self.place07 = tk.Label(self, height=4, width=13, bg='pink2', text=place_list[7], fg='white', font=('Arial', 12))
         self.place07.grid(row=3, column=6)
-        self.place08 = tk.Label(self, height=4, width=13, bg='sky blue', text=text_list[8], fg='white', font=('Arial', 12))
+        self.place08 = tk.Label(self, height=4, width=13, bg='sky blue', text=place_list[8], fg='white', font=('Arial', 12))
         self.place08.grid(row=4, column=6)
-        self.place09 = tk.Label(self, height=4, width=13, bg='pink2', text=text_list[9], fg='white', font=('Arial', 12))
+        self.place09 = tk.Label(self, height=4, width=13, bg='pink2', text=place_list[9], fg='white', font=('Arial', 12))
         self.place09.grid(row=5, column=6)
-        self.place10 = tk.Label(self, height=4, width=12, bg='sky blue', text=text_list[10], fg='white', font=('Arial', 12))
+        self.place10 = tk.Label(self, height=4, width=12, bg='sky blue', text=place_list[10], fg='white', font=('Arial', 12))
         self.place10.grid(row=5, column=5)
-        self.place11 = tk.Label(self, height=4, width=12, bg='pink2', text=text_list[11], fg='white', font=('Arial', 12))
+        self.place11 = tk.Label(self, height=4, width=12, bg='pink2', text=place_list[11], fg='white', font=('Arial', 12))
         self.place11.grid(row=5, column=4)
-        self.place12 = tk.Label(self, height=4, width=12, bg='sky blue', text=text_list[12], fg='white', font=('Arial', 12))
+        self.place12 = tk.Label(self, height=4, width=12, bg='sky blue', text=place_list[12], fg='white', font=('Arial', 12))
         self.place12.grid(row=5, column=3)
-        self.place13 = tk.Label(self, height=4, width=12, bg='pink2', text=text_list[13], fg='white', font=('Arial', 12))
+        self.place13 = tk.Label(self, height=4, width=12, bg='pink2', text=place_list[13], fg='white', font=('Arial', 12))
         self.place13.grid(row=5, column=2)
-        self.place14 = tk.Label(self, height=4, width=13, bg='sky blue', text=text_list[14], fg='white', font=('Arial', 12))
+        self.place14 = tk.Label(self, height=4, width=13, bg='sky blue', text=place_list[14], fg='white', font=('Arial', 12))
         self.place14.grid(row=5, column=1)
-        self.place15 = tk.Label(self, height=4, width=13, bg='pink2', text=text_list[15], fg='white', font=('Arial', 12))
+        self.place15 = tk.Label(self, height=4, width=13, bg='pink2', text=place_list[15], fg='white', font=('Arial', 12))
         self.place15.grid(row=4, column=1)
-        self.place16 = tk.Label(self, height=4, width=13, bg='sky blue', text=text_list[16], fg='white', font=('Arial', 12))
+        self.place16 = tk.Label(self, height=4, width=13, bg='sky blue', text=place_list[16], fg='white', font=('Arial', 12))
         self.place16.grid(row=3, column=1)
-        self.place17 = tk.Label(self, height=4, width=13, bg='pink2', text=text_list[17], fg='white', font=('Arial', 12))
+        self.place17 = tk.Label(self, height=4, width=13, bg='pink2', text=place_list[17], fg='white', font=('Arial', 12))
         self.place17.grid(row=2, column=1)
         
 
