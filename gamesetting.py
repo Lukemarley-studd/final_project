@@ -215,7 +215,11 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         print(player_loc_dict)
         self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 120))
         self.label.place(x = 570, y = 200)
-
+    def player_move(self, playerid):
+        for i in range(18):
+            if player_loc_dict[playerid] == i:
+                place_list[i] += chooseplayerdict[playerid]
+                
     def create_widgets(self):  # 接遊戲開始後的畫面
 
         # 外圈圖片
@@ -290,165 +294,26 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.picture25.grid(row=6, column=6)
 
         # 各地點和在該地點的玩家
+        global place_list
         place_list = ['校門\n\n', '管院\n\n', '小福\n\n', '新體\n\n', '法學院\n\n', '文學院\n\n', '電資學院\n\n',
                     '活大\n\n', '機會/命運\n\n', '社科院\n\n', '理學院\n\n', '醫學院\n\n', '宿舍\n\n',
                     '計中\n\n', '總圖\n\n', '醉月湖\n\n', '傅鐘\n\n', '水源校區\n\n']
-        for i in place_list:
-            if chooseplayerdict['player1'] in i:
-                i -= chooseplayerdict['player1']
-            if chooseplayerdict['player2'] in i:
-                i -= chooseplayerdict['player2']
-            if chooseplayerdict['player3'] in i:
-                i -= chooseplayerdict['player3']
-            if chooseplayerdict['player3'] in i:
-                i -= chooseplayerdict['player3']
+        # for i in place_list:
+            # if chooseplayerdict['player1'] in i:
+                # i -= chooseplayerdict['player1']
+            # if chooseplayerdict['player2'] in i:
+                # i -= chooseplayerdict['player2']
+            # if chooseplayerdict['player3'] in i:
+                # i -= chooseplayerdict['player3']
+            # if chooseplayerdict['player3'] in i:
+                # i -= chooseplayerdict['player3']
         if n >=2:
-            if player_loc_dict['player1'] == 0:
-                place_list[0] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 1:
-                place_list[1] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 2:
-                place_list[2] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 3:
-                place_list[3] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 4:
-                place_list[4] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 5:
-                place_list[5] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 6:
-                place_list[6] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 7:
-                place_list[7] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 8:
-                place_list[8] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 9:
-                place_list[9] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 10:
-                place_list[10] += chooseplayerdict['player1']    
-            if player_loc_dict['player1'] == 11:
-                place_list[11] += chooseplayerdict['player1']    
-            if player_loc_dict['player1'] == 12:
-                place_list[12] += chooseplayerdict['player1']    
-            if player_loc_dict['player1'] == 13:
-                place_list[13] += chooseplayerdict['player1']    
-            if player_loc_dict['player1'] == 14:
-                place_list[14] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 15:
-                place_list[15] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 16:
-                place_list[16] += chooseplayerdict['player1']
-            if player_loc_dict['player1'] == 17:
-                place_list[17] += chooseplayerdict['player1']
-            if player_loc_dict['player2'] == 0:
-                place_list[0] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 1:
-                place_list[1] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 2:
-                place_list[2] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 3:
-                place_list[3] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 4:
-                place_list[4] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 5:
-                place_list[5] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 6:
-                place_list[6] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 7:
-                place_list[7] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 8:
-                place_list[8] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 9:
-                place_list[9] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 10:
-                place_list[10] += chooseplayerdict['player2']    
-            if player_loc_dict['player2'] == 11:
-                place_list[11] += chooseplayerdict['player2']    
-            if player_loc_dict['player2'] == 12:
-                place_list[12] += chooseplayerdict['player2']    
-            if player_loc_dict['player2'] == 13:
-                place_list[13] += chooseplayerdict['player2']    
-            if player_loc_dict['player2'] == 14:
-                place_list[14] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 15:
-                place_list[15] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 16:
-                place_list[16] += chooseplayerdict['player2']
-            if player_loc_dict['player2'] == 17:
-                place_list[17] += chooseplayerdict['player2']
+            self.player_move('player1')
+            self.player_move('player2')
         if n >=3:        
-            if player_loc_dict['player3'] == 0:
-                place_list[0] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 1:
-                place_list[1] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 2:
-                place_list[2] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 3:
-                place_list[3] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 4:
-                place_list[4] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 5:
-                place_list[5] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 6:
-                place_list[6] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 7:
-                place_list[7] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 8:
-                place_list[8] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 9:
-                place_list[9] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 10:
-                place_list[10] += chooseplayerdict['player3']    
-            if player_loc_dict['player3'] == 11:
-                place_list[11] += chooseplayerdict['player3']    
-            if player_loc_dict['player3'] == 12:
-                place_list[12] += chooseplayerdict['player3']    
-            if player_loc_dict['player3'] == 13:
-                place_list[13] += chooseplayerdict['player3']    
-            if player_loc_dict['player3'] == 14:
-                place_list[14] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 15:
-                place_list[15] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 16:
-                place_list[16] += chooseplayerdict['player3']
-            if player_loc_dict['player3'] == 17:
-                place_list[17] += chooseplayerdict['player3']
+            self.player_move('player3')
         if n >=4:        
-            if player_loc_dict['player4'] == 0:
-                place_list[0] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 1:
-                place_list[1] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 2:
-                place_list[2] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 3:
-                place_list[3] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 4:
-                place_list[4] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 5:
-                place_list[5] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 6:
-                place_list[6] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 7:
-                place_list[7] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 8:
-                place_list[8] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 9:
-                place_list[9] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 10:
-                place_list[10] += chooseplayerdict['player4']    
-            if player_loc_dict['player4'] == 11:
-                place_list[11] += chooseplayerdict['player4']    
-            if player_loc_dict['player4'] == 12:
-                place_list[12] += chooseplayerdict['player4']    
-            if player_loc_dict['player4'] == 13:
-                place_list[13] += chooseplayerdict['player4']    
-            if player_loc_dict['player4'] == 14:
-                place_list[14] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 15:
-                place_list[15] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 16:
-                place_list[16] += chooseplayerdict['player4']
-            if player_loc_dict['player4'] == 17:
-                place_list[17] += chooseplayerdict['player4']
+            self.player_move('player4')
         # 內圈格子
         self.place00 = tk.Label(self, height=4, width=13, bg='sky blue', text=place_list[0], fg='white', font=('Arial', 12))
         self.place00.grid(row=1, column=1)
@@ -556,7 +421,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         """
         擲骰子按紐
         """
-        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 9, foreground = "white", bg = "pink2", font=('Arial', 12), command = self.roll_dice)
+        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 9, foreground = "white", bg = "pink2", font=('Arial', 12), command=lambda:[self.roll_dice(), self.create_widgets()])
         self.dice_button.place(x = 460, y = 240)
         # pass
         #以下測試用
