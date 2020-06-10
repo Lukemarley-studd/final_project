@@ -293,6 +293,14 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         place_list = ['校門\n\n', '管院\n\n', '小福\n\n', '新體\n\n', '法學院\n\n', '文學院\n\n', '電資學院\n\n',
                     '活大\n\n', '機會/命運\n\n', '社科院\n\n', '理學院\n\n', '醫學院\n\n', '宿舍\n\n',
                     '計中\n\n', '總圖\n\n', '醉月湖\n\n', '傅鐘\n\n', '水源校區\n\n']
+        # if player_loc_dict['player1'] == 0:
+            # place_list[0] += chooseplayerdict['player1']
+        # if player_loc_dict['player2'] == 0:
+            # place_list[0] += chooseplayerdict['player2']
+        # if player_loc_dict['player3'] == 0:
+            # place_list[0] += chooseplayerdict['player3'] 
+        # if player_loc_dict['player4'] == 0:
+            # place_list[0] += chooseplayerdict['player4']
         place_list[0] += chooseplayerdict['player1']+chooseplayerdict['player2']
         if n == 3:
             place_list[0] += chooseplayerdict['player3']
