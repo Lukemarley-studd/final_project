@@ -14,7 +14,7 @@ class Window(tk.Frame):
 
     def create_widgets(self):
         #建立物件
-        font1 = tkfont.Font(size = 30, family = "Hei")
+        font1 = tkfont.Font(size = 20, family = "Arial")
         self.space = tk.Label(self, height = 1, width = 1, text = ' ')
         self.space2 = tk.Label(self, height = 1, width = 20, text = '')
         png = Image.open('1.png')
