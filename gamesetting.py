@@ -17,10 +17,10 @@ class Window(tk.Frame):
         font1 = tkfont.Font(size = 30, family = "Hei")
         self.space = tk.Label(self, height = 1, width = 1, text = ' ')
         self.space2 = tk.Label(self, height = 1, width = 20, text = '')
-        self.png1 = ImageTk.PhotoImage(file='1.png')
-        self.lb1 = tk.Label(self, height = 350, width = 750, image = self.png1)#台大大富翁
-        self.png2 = ImageTk.PhotoImage(file='2.png')
-        self.lb2 = tk.Label(self, height = 150, width = 700, image = self.png2)#welcome to ntu
+        self.png1 = tk.PhotoImage(file='1.png')
+        self.lb1 = tk.Label(self, height = 300, width = 750, image = self.png1)#台大大富翁
+        self.png2 = tk.PhotoImage(file='2.png')
+        self.lb2 = tk.Label(self, height = 150, width = 750, image = self.png2)#welcome to ntu
         self.numofuser = tk.Label(self, height = 1, width = 15, font = font1, text = "請選擇玩家人數：")
         radiovalue = tk.IntVar()
         self._2p = tk.Radiobutton(self, height = 1, width = 5, font = font1, text = "2人", variable = radiovalue, value = 2, command = self.click2users)
@@ -45,22 +45,22 @@ class Window(tk.Frame):
         #指定位置
         full = tk.NE + tk.SW
         up = tk.NE + tk.NW
-        self.lb1.grid(row = 40, column = 1, columnspan = 4)
-        self.lb2.grid(row = 41, column = 1, columnspan = 5, rowspan = 10)
-        self.numofuser.grid(row = 80, column = 0, sticky = full)
-        self._2p.grid(row = 80, column = 2, sticky = full)
-        self._3p.grid(row = 80, column = 3, sticky = full)
-        self._4p.grid(row = 80, column = 4, sticky = full)
-        self.startbtn.grid(row = 90, column = 2, columnspan = 1)
-        self.space.grid(row = 88, column = 0, rowspan = 1)
-        self.space2.grid(row = 40, column = 6, columnspan = 3)
+        self.lb1.grid(row = 0, column = 1, columnspan = 4)
+        self.lb2.grid(row = 1, column = 1, columnspan = 5, rowspan = 10)
+        self.numofuser.grid(row = 13, column = 0, sticky = full)
+        self._2p.grid(row = 13, column = 2, sticky = full)
+        self._3p.grid(row = 13, column = 3, sticky = full)
+        self._4p.grid(row = 13, column = 4, sticky = full)
+        self.startbtn.grid(row = 25, column = 2, columnspan = 1)
+        self.space.grid(row = 12, column = 0, rowspan = 1)
+        self.space2.grid(row = 30, column = 6, columnspan = 3)
 
         #定義command
     def click2users(self):
-        self.player1.grid(row = 82, column = 1)
-        self.chooseplayer1.grid(row = 83, column = 1)
-        self.player2.grid(row = 82, column = 2)
-        self.chooseplayer2.grid(row = 83, column = 2)
+        self.player1.grid(row = 14, column = 1)
+        self.chooseplayer1.grid(row = 15, column = 1)
+        self.player2.grid(row = 14, column = 2)
+        self.chooseplayer2.grid(row = 15, column = 2)
         self.player3.grid_forget()
         self.chooseplayer3.grid_forget()
         self.player4.grid_forget()
@@ -68,25 +68,25 @@ class Window(tk.Frame):
         global n
         n = 2
     def click3users(self):
-        self.player1.grid(row = 82, column = 1)
-        self.chooseplayer1.grid(row = 83, column = 1)
-        self.player2.grid(row = 82, column = 2)
-        self.chooseplayer2.grid(row = 83, column = 2)
-        self.player3.grid(row = 82, column = 3)
-        self.chooseplayer3.grid(row = 83, column = 3)
+        self.player1.grid(row = 14, column = 1)
+        self.chooseplayer1.grid(row = 15, column = 1)
+        self.player2.grid(row = 14, column = 2)
+        self.chooseplayer2.grid(row = 15, column = 2)
+        self.player3.grid(row = 14, column = 3)
+        self.chooseplayer3.grid(row = 15, column = 3)
         self.player4.grid_forget()
         self.chooseplayer4.grid_forget()
         global n
         n = 3
     def click4users(self):
-        self.player1.grid(row = 82, column = 1)
-        self.chooseplayer1.grid(row = 83, column = 1)
-        self.player2.grid(row = 82, column = 2)
-        self.chooseplayer2.grid(row = 83, column = 2)
-        self.player3.grid(row = 82, column = 3)
-        self.chooseplayer3.grid(row = 83, column = 3)
-        self.player4.grid(row = 82, column = 4)
-        self.chooseplayer4.grid(row = 83, column = 4)
+        self.player1.grid(row = 14, column = 1)
+        self.chooseplayer1.grid(row = 15, column = 1)
+        self.player2.grid(row = 14, column = 2)
+        self.chooseplayer2.grid(row = 15, column = 2)
+        self.player3.grid(row = 14, column = 3)
+        self.chooseplayer3.grid(row = 15, column = 3)
+        self.player4.grid(row = 14, column = 4)
+        self.chooseplayer4.grid(row = 15, column = 4)
         global n
         n = 4
 
