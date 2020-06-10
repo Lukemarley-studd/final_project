@@ -357,7 +357,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             elif chooseplayerdict['player3'] == ' 😀 ':
                 self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
             self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
-            self.score_lb3.place(x = 320, y = 330)
+            self.score_lb3.place(x = 280, y = 290)
         
 
             if n == 4:
@@ -374,7 +374,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                 elif chooseplayerdict['player4'] == ' 😀 ':
                     self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
                 self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
-                self.score_lb4.place(x = 320, y = 380)
+                self.score_lb4.place(x = 280, y = 340)
 
         
         """
