@@ -517,7 +517,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                         self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
                     self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
                     self.score_lb3.place(x = 280, y = 290)                     
-                else:
+                elif n == 4:
                     score_4 += 2
                     if chooseplayerdict['player4'] == ' ★ ':
                         self.score_variable_4 = tk.StringVar(self, f'★ credits: {score_4}')
@@ -727,7 +727,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                 self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
                 self.score_lb4.place(x = 280, y = 340)
         
-        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 9, foreground = "white", bg = "pink2", font=('Arial', 12), command=lambda:[self.roll_dice(), self.create_widgets(), self.change_score()])
+        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 9, foreground = "white", bg = "pink2", font=('Arial', 12), command=lambda:[self.change_score(), self.roll_dice(), self.create_widgets()])
         self.dice_button.place(x = 460, y = 240)
 
 
