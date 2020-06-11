@@ -256,7 +256,7 @@ class Problems:
 
 class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
     def __init__(self, text, ans, root):
-        tk.Frame.__init__(self)
+        tk.Toplevel.__init__(self)
         self.text = text
         self.ans = ans
         self.grid()
@@ -312,7 +312,7 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
             # score = 0
 
 
-class ShowResult(tk.Toplevel):  # 切換作答結果頁面
+class ShowResult(tk.Frame):  # 切換作答結果頁面
     def __init__(self, result, root):
         tk.Frame.__init__(self)
         self.text = result
@@ -332,7 +332,7 @@ class ShowResult(tk.Toplevel):  # 切換作答結果頁面
 
 class ChanceDestinyWindow(tk.Toplevel):  # 彈出機會命運的視窗
     def __init__(self, text, root):
-        tk.Frame.__init__(self)
+        tk.Toplevel.__init__(self)
         self.text = text
         self.grid()
         self.createWidgets()
@@ -349,7 +349,7 @@ class ChanceDestinyWindow(tk.Toplevel):  # 彈出機會命運的視窗
 
 
 class master(tk.Tk):
-    def __init__(self, frame_class, text1 = None, text2 = None, parent):
+    def __init__(self, frame_class, parent, text1 = None, text2 = None):
         tk.Tk.__init__(self)
         if frame_class == 1:
             self._frame = ProblemWindow(text1, text2, self)
@@ -402,21 +402,25 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             player_loc_dict['player1'] += self.step_num
             if player_loc_dict['player1'] > 17:
                 player_loc_dict['player1'] -= 18
+            self.problems.call_a_problem(player_loc_dict['player1'])
             player += 1
         elif player == 2:
             player_loc_dict['player2'] += self.step_num
             if player_loc_dict['player2'] > 17:
                 player_loc_dict['player2'] -= 18
+            self.problems.call_a_problem(player_loc_dict['player2'])
             player += 1
         elif player == 3:
             player_loc_dict['player3'] += self.step_num
             if player_loc_dict['player3'] > 17:
                 player_loc_dict['player3'] -= 18
+            self.problems.call_a_problem(player_loc_dict['player3'])
             player += 1
         else:
             player_loc_dict['player4'] += self.step_num
             if player_loc_dict['player4'] > 17:
                 player_loc_dict['player4'] -= 18
+            self.problems.call_a_problem(player_loc_dict['player4'])
             player += 1
         if player > n:
             player = 1
