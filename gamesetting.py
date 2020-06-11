@@ -312,9 +312,9 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
             # score = 0
 
 
-class ShowResult(tk.Frame):  # 切換作答結果頁面
+class ShowResult(tk.Toplevel):  # 切換作答結果頁面
     def __init__(self, result, root):
-        tk.Frame.__init__(self)
+        tk.Toplevel.__init__(self)
         self.text = result
         self.grid()
         self.createWidgets()
@@ -327,7 +327,7 @@ class ShowResult(tk.Frame):  # 切換作答結果頁面
         self.lbResult.grid(row = 0, column = 0, sticky = tk.NE + tk.SW)
 
     def click_buttonSure(self):
-        self.root.destroy()
+        self.destroy()
 
 
 class ChanceDestinyWindow(tk.Toplevel):  # 彈出機會命運的視窗
@@ -345,12 +345,11 @@ class ChanceDestinyWindow(tk.Toplevel):  # 彈出機會命運的視窗
         self.lbChance.grid(row = 0, column = 0, sticky = tk.NE + tk.SW)
 
     def click_buttonSure(self):
-        self.root.destroy()
+        self.destroy()
 
 
 class master(tk.Tk):
-    def __init__(self, frame_class, parent, text1 = None, text2 = None):
-        tk.Tk.__init__(self)
+    def __init__(self, frame_class, text1 = None, text2 = None):
         if frame_class == 1:
             self._frame = ProblemWindow(text1, text2, self)
             self.title("Problem Window")
@@ -377,7 +376,6 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.problems = Problems()
         self.grid()
         self.create_widgets()
-        # self.problems = Problems()
 
 
     def roll_dice(self):
