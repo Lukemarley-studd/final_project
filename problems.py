@@ -204,6 +204,6 @@ class master(tttk.Tk):
 
 
 problems = Problems()
-for i in range(17):
+for i in range(18):
     score = problems.call_a_problem(i)
     print(score)
