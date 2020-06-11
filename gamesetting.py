@@ -352,17 +352,17 @@ class master(tk.Tk):
     def __init__(self, frame_class, text1 = None, text2 = None):
         if frame_class == 1:
             self._frame = ProblemWindow(text1, text2, self)
-            self.title("Problem Window")
+            # self.title("Problem Window")
         else:
             self.frame = ChanceDestinyWindow(text1, self)
-            self.title("Chance and Destiny Window")
-        self.mainloop()
+            # self.title("Chance and Destiny Window")
+        # self.mainloop()
     def switch_frame(self, frame_class, result):
         new_frame = frame_class(result, self)
         if self._frame is not None:
             self._frame.destroy()
         self._frame = new_frame
-        self._frame.pack()
+        # self._frame.pack()
 
 
 
