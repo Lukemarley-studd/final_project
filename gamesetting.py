@@ -254,6 +254,7 @@ class Problems:
             return score
 
 
+score_1, score_2, score_3, score_4 = 0, 0, 0, 0
 class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
     def __init__(self, text, ans, root):
         tk.Toplevel.__init__(self)
@@ -277,8 +278,17 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
 
     def click_buttonA(self):
         self.destroy()
+        global player, score_1, score_2, score_3, score_4
         if self.ans == "A":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
+            if player == 1:
+                score_1 += 2
+            elif player == 2:
+                score_2 += 2
+            elif player == 3:
+                score_3 += 2
+            else:
+                score_4 += 2
             # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
@@ -286,8 +296,17 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
 
     def click_buttonB(self):
         self.destroy()
+        global player, score_1, score_2, score_3, score_4
         if self.ans == "B":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
+            if player == 1:
+                score_1 += 2
+            elif player == 2:
+                score_2 += 2
+            elif player == 3:
+                score_3 += 2
+            else:
+                score_4 += 2
             # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
@@ -295,8 +314,17 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
 
     def click_buttonC(self):
         self.destroy()
+        global player, score_1, score_2, score_3, score_4
         if self.ans == "C":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分", )
+            if player == 1:
+                score_1 += 2
+            elif player == 2:
+                score_2 += 2
+            elif player == 3:
+                score_3 += 2
+            else:
+                score_4 += 2
             # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
@@ -304,8 +332,17 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
 
     def click_buttonD(self):
         self.destroy()
+        global player, score_1, score_2, score_3, score_4
         if self.ans == "D":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
+            if player == 1:
+                score_1 += 2
+            elif player == 2:
+                score_2 += 2
+            elif player == 3:
+                score_3 += 2
+            else:
+                score_4 += 2
             # score = 2
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
@@ -571,7 +608,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         
 
 
-        score_1 = 0
+        # score_1 = 0
         """
         改變玩家1的學分數
         """
@@ -586,7 +623,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.score_lbl = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_1, font=('Arial', 12))
         self.score_lbl.place(x = 280, y = 190)
         
-        score_2 = 0
+        # score_2 = 0
         """
         #改變玩家2的學分數
         """
@@ -603,7 +640,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
 
 
         if n >= 3:
-            score_3 = 0
+            # score_3 = 0
 
             #改變玩家3的學分數
             if chooseplayerdict['player3'] == ' ★ ':
@@ -619,7 +656,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         
 
             if n == 4:
-                score_4 = 0
+                # score_4 = 0
                 """
                 改變玩家4的學分數
                 """
