@@ -252,9 +252,13 @@ class Problems:
             else:  # 少2學分
                 score = -2
             return score
+"""
+紀錄四個玩家分數
+"""
+score_1 = score_2 = score_3 = score_4 = 0
+result = False  # 紀錄答題的結果
+dice_availible = True
 
-
-score_1, score_2, score_3, score_4 = 0, 0, 0, 0
 class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
     def __init__(self, text, ans, root):
         tk.Toplevel.__init__(self)
@@ -277,76 +281,48 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
         self.lbProblem.grid(row = 0, column = 0, columnspan = 4, sticky = tk.NE + tk.SW)
 
     def click_buttonA(self):
+        global player
+        global result
         self.destroy()
-        global player, score_1, score_2, score_3, score_4
         if self.ans == "A":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
-            if player == 1:
-                score_1 += 2
-            elif player == 2:
-                score_2 += 2
-            elif player == 3:
-                score_3 += 2
-            else:
-                score_4 += 2
-            # score = 2
+            result = True
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            # score = 0
+            result = False
 
     def click_buttonB(self):
+        global player
+        global result
         self.destroy()
-        global player, score_1, score_2, score_3, score_4
         if self.ans == "B":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
-            if player == 1:
-                score_1 += 2
-            elif player == 2:
-                score_2 += 2
-            elif player == 3:
-                score_3 += 2
-            else:
-                score_4 += 2
-            # score = 2
+            result = True
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            # score = 0
+            result = False
 
     def click_buttonC(self):
+        global player
+        global result
         self.destroy()
-        global player, score_1, score_2, score_3, score_4
         if self.ans == "C":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分", )
-            if player == 1:
-                score_1 += 2
-            elif player == 2:
-                score_2 += 2
-            elif player == 3:
-                score_3 += 2
-            else:
-                score_4 += 2
-            # score = 2
+            result = True
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            # score = 0
+            result = False
 
     def click_buttonD(self):
+        global player        
+        global result
         self.destroy()
-        global player, score_1, score_2, score_3, score_4
         if self.ans == "D":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
-            if player == 1:
-                score_1 += 2
-            elif player == 2:
-                score_2 += 2
-            elif player == 3:
-                score_3 += 2
-            else:
-                score_4 += 2
-            # score = 2
+            result = True
         else:
             self.root.switch_frame(ShowResult, "Wrong!")
-            # score = 0
+            result = False
 
 
 class ShowResult(tk.Toplevel):  # 切換作答結果頁面
@@ -356,6 +332,7 @@ class ShowResult(tk.Toplevel):  # 切換作答結果頁面
         self.grid()
         self.createWidgets()
         self.root = root
+
 
     def createWidgets(self):
         self.lbResult = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "40", text = self.text)
@@ -407,6 +384,8 @@ class master(tk.Tk):
 
 player = 1
 player_loc_dict = {'player1':0, 'player2':0, 'player3':0, 'player4':0}
+
+
 class NewFrame(tk.Frame):  # 遊戲開始的畫面
     def __init__(self):
         tk.Frame.__init__(self)
@@ -433,6 +412,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             self.step_num = 6
         global player
         global player_loc_dict
+        global dice_availible
         if player == 1:
             player_loc_dict['player1'] += self.step_num
             if player_loc_dict['player1'] > 17:
@@ -462,12 +442,105 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         print(player_loc_dict)
         self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 120))
         self.label.place(x = 570, y = 200)
+        dice_availible = False  # 不能按骰子
     def player_move(self, playerid):
         for i in range(18):
             if player_loc_dict[playerid] == i:
                 place_list[i] += chooseplayerdict[playerid]
+    """
+    按分數更新後啟用dice的函式
+    """
+    def activate_dice(self):
+        self.dice_button = tk.Button(self, text = "ROLL", height = 3, width = 7, foreground = "white", bg = "pink2", font=('Arial', 12), command=lambda:[self.roll_dice(), self.create_widgets()])
+        self.dice_button.place(x = 460, y = 200)
+    
+    """
+    這個函式用來更新原本的記分板
+    """
+    def change_score(self):
+        global score_1
+        global score_2
+        global score_3
+        global score_4
+        global result
 
-                
+        if result == True:  
+            if player == 2:
+                score_1 += 2
+                if chooseplayerdict['player1'] == " ★ ":
+                    self.score_variable_1 = tk.StringVar(self, f'★ credits: {score_1}')
+                elif chooseplayerdict['player1'] == ' ❤ ':
+                    self.score_variable_1 = tk.StringVar(self, f'❤ credits: {score_1}')
+                elif chooseplayerdict['player1'] == ' ✿ ':
+                    self.score_variable_1 = tk.StringVar(self, f'✿ credits: {score_1}')
+                elif chooseplayerdict['player1'] == ' 😀 ':
+                    self.score_variable_1 = tk.StringVar(self, f'😀 credits: {score_1}')
+                self.score_lb1 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_1, font=('Arial', 12))
+                self.score_lb1.place(x = 280, y = 190)
+            
+            elif player == 3:
+                score_2 += 2
+                if chooseplayerdict['player2'] == ' ★ ':
+                    self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
+                elif chooseplayerdict['player2'] == ' ❤ ':
+                    self.score_variable_2 = tk.StringVar(self, f'❤ credits: {score_2}')
+                elif chooseplayerdict['player2'] == ' ✿ ':
+                    self.score_variable_2 = tk.StringVar(self, f'✿ credits: {score_2}')
+                elif chooseplayerdict['player2'] == ' 😀 ':
+                    self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_2}')
+                self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
+                self.score_lb2.place(x = 280, y = 240)
+
+            elif player == 4:
+                score_3 += 2
+                if chooseplayerdict['player3'] == ' ★ ':
+                    self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
+                elif chooseplayerdict['player3'] == ' ❤ ':
+                    self.score_variable_3 = tk.StringVar(self, f'❤ credits: {score_3}')
+                elif chooseplayerdict['player3'] == ' ✿ ':
+                    self.score_variable_3 = tk.StringVar(self, f'✿ credits: {score_3}')
+                elif chooseplayerdict['player3'] == ' 😀 ':
+                    self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
+                self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
+                self.score_lb3.place(x = 280, y = 290)
+            elif player == 1:
+                if n == 2:
+                    score_2 += 2
+                    if chooseplayerdict['player2'] == ' ★ ':
+                        self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
+                    elif chooseplayerdict['player2'] == ' ❤ ':
+                        self.score_variable_2 = tk.StringVar(self, f'❤ credits: {score_2}')
+                    elif chooseplayerdict['player2'] == ' ✿ ':
+                        self.score_variable_2 = tk.StringVar(self, f'✿ credits: {score_2}')
+                    elif chooseplayerdict['player2'] == ' 😀 ':
+                        self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_2}')
+                    self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
+                    self.score_lb2.place(x = 280, y = 240)   
+                elif n == 3:
+                    score_3 += 2
+                    if chooseplayerdict['player3'] == ' ★ ':
+                        self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
+                    elif chooseplayerdict['player3'] == ' ❤ ':
+                        self.score_variable_3 = tk.StringVar(self, f'❤ credits: {score_3}')
+                    elif chooseplayerdict['player3'] == ' ✿ ':
+                        self.score_variable_3 = tk.StringVar(self, f'✿ credits: {score_3}')
+                    elif chooseplayerdict['player3'] == ' 😀 ':
+                        self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
+                    self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
+                    self.score_lb3.place(x = 280, y = 290)                                                    
+                elif n == 4:
+                    score_4 += 2
+                    if chooseplayerdict['player4'] == ' ★ ':
+                        self.score_variable_4 = tk.StringVar(self, f'★ credits: {score_4}')
+                    elif chooseplayerdict['player4'] == ' ❤ ':
+                        self.score_variable_4 = tk.StringVar(self, f'❤ credits: {score_4}')
+                    elif chooseplayerdict['player4'] == ' ✿ ':
+                        self.score_variable_4 = tk.StringVar(self, f'✿ credits: {score_4}')
+                    elif chooseplayerdict['player4'] == ' 😀 ':
+                        self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
+                    self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
+                    self.score_lb4.place(x = 280, y = 340)
+            result = False  # 把result改回來
     def create_widgets(self):  # 接遊戲開始後的畫面
 
         # 外圈圖片
@@ -607,11 +680,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.place17.grid(row=2, column=1)
         
 
-
-        # score_1 = 0
-        """
-        改變玩家1的學分數
-        """
+        global score_1
         if chooseplayerdict['player1'] == ' ★ ':
             self.score_variable_1 = tk.StringVar(self, f'★ credits: {score_1}')
         elif chooseplayerdict['player1'] == ' ❤ ':
@@ -623,10 +692,10 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         self.score_lbl = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_1, font=('Arial', 12))
         self.score_lbl.place(x = 280, y = 190)
         
-        # score_2 = 0
         """
         #改變玩家2的學分數
         """
+        global score_2 
         if chooseplayerdict['player2'] == ' ★ ':
             self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
         elif chooseplayerdict['player2'] == ' ❤ ':
@@ -640,9 +709,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
 
 
         if n >= 3:
-            # score_3 = 0
-
-            #改變玩家3的學分數
+            global score_3
             if chooseplayerdict['player3'] == ' ★ ':
                 self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
             elif chooseplayerdict['player3'] == ' ❤ ':
@@ -656,10 +723,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         
 
             if n == 4:
-                # score_4 = 0
-                """
-                改變玩家4的學分數
-                """
+                global score_4
                 if chooseplayerdict['player4'] == ' ★ ':
                     self.score_variable_4 = tk.StringVar(self, f'★ credits: {score_4}')
                 elif chooseplayerdict['player4'] == ' ❤ ':
@@ -670,19 +734,21 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
                 self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
                 self.score_lb4.place(x = 280, y = 340)
-
+        if dice_availible == True:
+            self.dice_button = tk.Button(self, text = "ROLL", height = 3, width = 7, foreground = "white", bg = "pink2", font=('Arial', 12), command=lambda:[self.roll_dice(), self.create_widgets()])
+        else:
+            self.dice_button = tk.Button(self, text = "ROLL", height = 3, width = 7, foreground = "white", bg = "pink2", font=('Arial', 12))
+        self.dice_button.place(x = 460, y = 200)    
         
-        """
-        擲骰子按紐
-        """
-        self.dice_button = tk.Button(self, text = "ROLL", height = 5, width = 9, foreground = "white", bg = "pink2", font=('Arial', 12), command=lambda:[self.roll_dice(), self.create_widgets()])
-        self.dice_button.place(x = 460, y = 240)
+        self.update_score_button = tk.Button(self, text = "UPDATE", height = 3, width = 7, foreground = "white", bg = "skyblue", font=('Arial', 12), command = lambda:[self.change_score(), self.activate_dice()])
+        self.update_score_button.place(x = 460, y = 280)
+        
         # pass
         #以下測試用
         #self.png1 = ImageTk.PhotoImage(file='1.png')
         #self.lb1 = tk.Label(self, height = 200, width = 450, image = self.png1, bg = 'black')#台大大富翁
         #self.lb1.grid(row = 40, column = 0, columnspan = 5)
-
+        
 mywindow = Window()
 mywindow.master.title("台大大富翁")
 
