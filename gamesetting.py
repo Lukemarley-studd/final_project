@@ -286,6 +286,7 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
     def click_buttonA(self):
         global player
         global result
+        global penalty
         self.destroy()
         if self.ans == "A":
             self.root.switch_frame(ShowResult, "Correct!\n\n+2學分")
@@ -542,6 +543,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         elif penalty == True:
             if player == 2:
                 score_1 -= 2
+                if score_1 < 0:
+                    score_1 = 0
+
                 if chooseplayerdict['player1'] == " ★ ":
                     self.score_variable_1 = tk.StringVar(self, f'★ credits: {score_1}')
                 elif chooseplayerdict['player1'] == ' ❤ ':
@@ -555,6 +559,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             
             elif player == 3:
                 score_2 -= 2
+                if score_2 < 0:
+                    score_2 = 0
+
                 if chooseplayerdict['player2'] == ' ★ ':
                     self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
                 elif chooseplayerdict['player2'] == ' ❤ ':
@@ -568,6 +575,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
 
             elif player == 4:
                 score_3 -= 2
+                if score_3 < 0:
+                    score_3 = 0
+
                 if chooseplayerdict['player3'] == ' ★ ':
                     self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
                 elif chooseplayerdict['player3'] == ' ❤ ':
@@ -581,6 +591,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             elif player == 1:
                 if n == 2:
                     score_2 -= 2
+                    if score_2 < 0:
+                        score_2 = 0
+
                     if chooseplayerdict['player2'] == ' ★ ':
                         self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
                     elif chooseplayerdict['player2'] == ' ❤ ':
@@ -593,6 +606,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_lb2.place(x = 280, y = 240)   
                 elif n == 3:
                     score_3 -= 2
+                    if score_3 < 0:
+                        score_3 = 0
+
                     if chooseplayerdict['player3'] == ' ★ ':
                         self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
                     elif chooseplayerdict['player3'] == ' ❤ ':
@@ -605,6 +621,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_lb3.place(x = 280, y = 290)                                                    
                 elif n == 4:
                     score_4 -= 2
+                    if score_4 < 0:
+                        score_4 = 0
+
                     if chooseplayerdict['player4'] == ' ★ ':
                         self.score_variable_4 = tk.StringVar(self, f'★ credits: {score_4}')
                     elif chooseplayerdict['player4'] == ' ❤ ':
