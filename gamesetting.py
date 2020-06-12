@@ -201,8 +201,8 @@ class Problems:
               ["下列哪個社團的社辦在活大？\n\nA.魔術社  B.薇友會  C.烏克麗麗社  D.咖啡社", "C"]]
         p8 = ["獲得椰林小舖發放的優惠券一張，多2學分",
               "得到管爺青睞，多2學分",
-              "想耍帥放雙手騎車，結果烙賽扑街，暫停一回合",
-              "腳踏車被水源阿伯拖走了，暫停一回合",
+              "想耍帥放雙手騎車，結果烙賽扑街，少2學分",
+              "腳踏車被水源阿伯拖走了，少2學分",
               "修到一門很硬的課，決定停修，少2學分"]
         p9 = [["社科圖的別稱是_____先生紀念圖書館？\n\nA.辜振甫  B.辜顯榮  C.辜寬敏  D.辜仲諒", "A"],
               ["社科圖平日幾點閉館？\n\nA.21:00  B.21:30  C.22:00  D.22:30", "C"],
@@ -251,13 +251,10 @@ class Problems:
             master(0, chance_destiny)
             if number <= 1:  # 加2學分
                 result = True
-                score = 2
-            elif number >= 2 and number <= 3:  # 暫停一回合
-                score = -1  # 加進暫停list
             else:  # 少2學分
                 penalty = True
-                score = -2
-            return score
+
+
 """
 紀錄四個玩家分數
 """
@@ -372,19 +369,13 @@ class master(tk.Tk):
     def __init__(self, frame_class, text1 = None, text2 = None):
         if frame_class == 1:
             self._frame = ProblemWindow(text1, text2, self)
-            # self.title("Problem Window")
         else:
             self.frame = ChanceDestinyWindow(text1, self)
-            # self.title("Chance and Destiny Window")
-        # self.mainloop()
     def switch_frame(self, frame_class, result):
         new_frame = frame_class(result, self)
         if self._frame is not None:
             self._frame.destroy()
         self._frame = new_frame
-        # self._frame.pack()
-
-
 
 
 
@@ -715,15 +706,11 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                 # i -= chooseplayerdict['player3']
         if n >=2:
             self.player_move('player1')
-            # self.problems.call_a_problem(player_loc_dict['player1'])
             self.player_move('player2')
-            # self.problems.call_a_problem(player_loc_dict['player2'])
         if n >=3:        
             self.player_move('player3')
-            # self.problems.call_a_problem(player_loc_dict['player3'])
         if n >=4:        
             self.player_move('player4')
-            # self.problems.call_a_problem(player_loc_dict['player4'])
 
 
         # 內圈格子
