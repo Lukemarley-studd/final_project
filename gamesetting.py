@@ -156,15 +156,45 @@ class GameRuleWindow(tk.Toplevel):  # 遊戲規則的視窗
         self.intro = tk.Label(self, height = 1, width = 70, font = font2, text = '這是一款大富翁遊戲，玩家們將進入台大並以獲得20學分為目標，開始搶救學分大作戰！')
         self.lb1 = tk.Label(self, height = 1, width = 54, font = font1, text = '1. 遊戲開始前，請各位玩家先選擇人數以及各自代表的符號（不重複）')
         self.lb2 = tk.Label(self, height = 1, width = 45, font = font1, text = '2. 以校門口為起點，玩家們依序擲骰子進行遊戲（ROLL）')
-        self.lb3 = tk.Label(self, height = 1, width = 78, font = font1, text = '3. 到達各地點後，必須回答問題才能獲得學分，回答完畢必須更新才能拿到學分並繼續遊戲（UPDATE）')
+        self.lb3 = tk.Label(self, height = 1, width = 80, font = font1, text = '3. 到達各地點後，必須回答問題才能獲得學分，回答完畢必須更新才能拿到學分並繼續遊戲（UPDATE）')
         self.lb4 = tk.Label(self, height = 1, width = 29, font = font1, text = '4. 先獲得20學分者獲勝，並結束遊戲')
 
         self.title.grid(row = 0, column = 20)
         self.intro.grid(row = 2, column = 0, columnspan = 70)
         self.lb1.grid(row = 3, column = 0, columnspan = 54, sticky = tk.W)
         self.lb2.grid(row = 4, column = 0, columnspan = 45, sticky = tk.W)
-        self.lb3.grid(row = 5, column = 0, columnspan = 78, sticky = tk.W)
+        self.lb3.grid(row = 5, column = 0, columnspan = 80, sticky = tk.W)
         self.lb4.grid(row = 6, column = 0, columnspan = 29, sticky = tk.W)
+
+'''
+遊戲結束的畫面
+'''
+class GameOver(tk.Frame):
+    def __init__(self):
+        tk.Frame.__init__(self)
+        self.grid()
+        self.create_widgets()
+
+    def create_widgets(self):
+        # 建立物件
+        font1 = tkfont.Font(size = 28, family = "Arial")
+        self.space = tk.Label(self, height = 1, width = 1, text = ' ')
+        self.gameoverpng = ImageTk.PhotoImage(file='gameover.png')
+        self.gameover = tk.Label(self, height = 130, width = 700, image = self.gameoverpng)#GameOver的圖片
+        self.restartbtn = tk.Button(self, text = '重新開始！', bg = 'black', font = font1, command = self.restart_new_game)
+
+        # 指定位置
+        self.gameover.grid(row = 41, column = 0, columnspan = 80, rowspan = 20)
+        self.restartbtn.grid(row = 90, column = 40, columnspan = 1)
+        self.space.grid(row = 88, column = 0, rowspan = 1)
+
+        # 定義command
+    def restart_new_game(self):
+        global GAMEOVER
+        GAMEOVER.destroy()
+        newgame = Window()  # 開始新的遊戲
+        newgame.mainloop()
+
 '''
 class Warning(tk.Frame):
     def __init__(self):
@@ -493,6 +523,11 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_variable_1 = tk.StringVar(self, f'😀 credits: {score_1}')
                 self.score_lb1 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_1, font=('Arial', 12))
                 self.score_lb1.place(x = 280, y = 190)
+                if score_1 >= 20:
+                    newframe.destroy()
+                    global GAMEOVER
+                    GAMEOVER = GameOver()
+                    GAMEOVER.mainloop()
             
             elif player == 3:
                 score_2 += 2
@@ -506,6 +541,11 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_2}')
                 self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
                 self.score_lb2.place(x = 280, y = 240)
+                if score_2 >= 20:
+                    newframe.destroy()
+                    #global GAMEOVER
+                    GAMEOVER = GameOver()
+                    GAMEOVER.mainloop()
 
             elif player == 4:
                 score_3 += 2
@@ -519,6 +559,11 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
                 self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
                 self.score_lb3.place(x = 280, y = 290)
+                if score_3 >= 20:
+                    newframe.destroy()
+                    #global GAMEOVER
+                    GAMEOVER = GameOver()
+                    GAMEOVER.mainloop()
             elif player == 1:
                 if n == 2:
                     score_2 += 2
@@ -531,7 +576,12 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     elif chooseplayerdict['player2'] == ' 😀 ':
                         self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_2}')
                     self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
-                    self.score_lb2.place(x = 280, y = 240)   
+                    self.score_lb2.place(x = 280, y = 240)
+                    if score_2 >= 20:
+                        newframe.destroy()
+                        #global GAMEOVER
+                        GAMEOVER = GameOver()
+                        GAMEOVER.mainloop()
                 elif n == 3:
                     score_3 += 2
                     if chooseplayerdict['player3'] == ' ★ ':
@@ -543,7 +593,12 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     elif chooseplayerdict['player3'] == ' 😀 ':
                         self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
                     self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
-                    self.score_lb3.place(x = 280, y = 290)                                                    
+                    self.score_lb3.place(x = 280, y = 290)
+                    if score_3 >= 20:
+                        newframe.destroy()
+                        #global GAMEOVER
+                        GAMEOVER = GameOver()
+                        GAMEOVER.mainloop()
                 elif n == 4:
                     score_4 += 2
                     if chooseplayerdict['player4'] == ' ★ ':
@@ -556,6 +611,11 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                         self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
                     self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
                     self.score_lb4.place(x = 280, y = 340)
+                    if score_1 >= 20:
+                        newframe.destroy()
+                        #global GAMEOVER
+                        GAMEOVER = GameOver()
+                        GAMEOVER.mainloop()
             result = False  # 把result改回來
         elif penalty == True:
             if player == 2:
@@ -861,35 +921,3 @@ mywindow = Window()
 mywindow.master.title("台大大富翁")
 
 mywindow.mainloop()
-
-
-
-'''
-遊戲結束的畫面
-'''
-class GameOver(tk.Frame):
-    def __init__(self):
-        tk.Frame.__init__(self)
-        self.grid()
-        self.create_widgets()
-
-    def create_widgets(self):
-        # 建立物件
-        font1 = tkfont.Font(size = 32, family = "Hei")
-        self.space = tk.Label(self, height = 1, width = 1, text = ' ', bg = 'black')
-        self.gameoverpng = ImageTk.PhotoImage(file='gameover.png')
-        self.gameover = tk.Label(self, height = 80, width = 700, image = self.gameoverpng, bg = 'black')#GameOver的圖片
-        self.restartbtn = tk.Button(self, text = '重新開始！', bg = 'black', font = font1, command = self.restart_new_game)
-
-        # 指定位置
-        self.gameover.grid(row = 41, column = 0, columnspan = 5, rowspan = 10)
-        self.restartbtn.grid(row = 90, column = 2, columnspan = 1)
-        self.space.grid(row = 88, column = 0, rowspan = 1)
-
-        # 定義command
-    def restart_new_game(self):
-        w.destroy()  # w為gameover畫面的代號，這裡是把gameover畫面去除的意思
-        newgame = Window()  # 開始新的遊戲
-        newgame.configure(bg = 'black')
-        newgame.mainloop()
-
