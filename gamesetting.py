@@ -6,6 +6,8 @@ import random
 
 chooseplayerdict = dict()
 n = 0
+result = False  # 紀錄答題的結果
+penalty = False # 有沒有被扣分
 class Window(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
@@ -237,6 +239,8 @@ class Problems:
         self.problem_list = [p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17]
 
     def call_a_problem(self, location):  # 隨機叫出該位置的一個問題或機會命運
+        global result
+        global penalty
         number = random.randint(0, len(self.problem_list[location]) - 1)
         if location != 8:
             problem = self.problem_list[location][number][0]
@@ -246,17 +250,19 @@ class Problems:
             chance_destiny = self.problem_list[location][number]
             master(0, chance_destiny)
             if number <= 1:  # 加2學分
+                result = True
                 score = 2
             elif number >= 2 and number <= 3:  # 暫停一回合
                 score = -1  # 加進暫停list
             else:  # 少2學分
+                penalty = True
                 score = -2
             return score
 """
 紀錄四個玩家分數
 """
 score_1 = score_2 = score_3 = score_4 = 0
-result = False  # 紀錄答題的結果
+
 dice_availible = True
 
 class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
@@ -463,6 +469,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         global score_3
         global score_4
         global result
+        global penalty
 
         if result == True:  
             if player == 2:
@@ -541,6 +548,84 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
                     self.score_lb4.place(x = 280, y = 340)
             result = False  # 把result改回來
+        elif penalty == True:
+            if player == 2:
+                score_1 -= 2
+                if chooseplayerdict['player1'] == " ★ ":
+                    self.score_variable_1 = tk.StringVar(self, f'★ credits: {score_1}')
+                elif chooseplayerdict['player1'] == ' ❤ ':
+                    self.score_variable_1 = tk.StringVar(self, f'❤ credits: {score_1}')
+                elif chooseplayerdict['player1'] == ' ✿ ':
+                    self.score_variable_1 = tk.StringVar(self, f'✿ credits: {score_1}')
+                elif chooseplayerdict['player1'] == ' 😀 ':
+                    self.score_variable_1 = tk.StringVar(self, f'😀 credits: {score_1}')
+                self.score_lb1 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_1, font=('Arial', 12))
+                self.score_lb1.place(x = 280, y = 190)
+            
+            elif player == 3:
+                score_2 -= 2
+                if chooseplayerdict['player2'] == ' ★ ':
+                    self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
+                elif chooseplayerdict['player2'] == ' ❤ ':
+                    self.score_variable_2 = tk.StringVar(self, f'❤ credits: {score_2}')
+                elif chooseplayerdict['player2'] == ' ✿ ':
+                    self.score_variable_2 = tk.StringVar(self, f'✿ credits: {score_2}')
+                elif chooseplayerdict['player2'] == ' 😀 ':
+                    self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_2}')
+                self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
+                self.score_lb2.place(x = 280, y = 240)
+
+            elif player == 4:
+                score_3 -= 2
+                if chooseplayerdict['player3'] == ' ★ ':
+                    self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
+                elif chooseplayerdict['player3'] == ' ❤ ':
+                    self.score_variable_3 = tk.StringVar(self, f'❤ credits: {score_3}')
+                elif chooseplayerdict['player3'] == ' ✿ ':
+                    self.score_variable_3 = tk.StringVar(self, f'✿ credits: {score_3}')
+                elif chooseplayerdict['player3'] == ' 😀 ':
+                    self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
+                self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
+                self.score_lb3.place(x = 280, y = 290)
+            elif player == 1:
+                if n == 2:
+                    score_2 -= 2
+                    if chooseplayerdict['player2'] == ' ★ ':
+                        self.score_variable_2 = tk.StringVar(self, f'★ credits: {score_2}')
+                    elif chooseplayerdict['player2'] == ' ❤ ':
+                        self.score_variable_2 = tk.StringVar(self, f'❤ credits: {score_2}')
+                    elif chooseplayerdict['player2'] == ' ✿ ':
+                        self.score_variable_2 = tk.StringVar(self, f'✿ credits: {score_2}')
+                    elif chooseplayerdict['player2'] == ' 😀 ':
+                        self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_2}')
+                    self.score_lb2 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_2, font=('Arial', 12))
+                    self.score_lb2.place(x = 280, y = 240)   
+                elif n == 3:
+                    score_3 -= 2
+                    if chooseplayerdict['player3'] == ' ★ ':
+                        self.score_variable_3 = tk.StringVar(self, f'★ credits: {score_3}')
+                    elif chooseplayerdict['player3'] == ' ❤ ':
+                        self.score_variable_3 = tk.StringVar(self, f'❤ credits: {score_3}')
+                    elif chooseplayerdict['player3'] == ' ✿ ':
+                        self.score_variable_3 = tk.StringVar(self, f'✿ credits: {score_3}')
+                    elif chooseplayerdict['player3'] == ' 😀 ':
+                        self.score_variable_3 = tk.StringVar(self, f'😀 credits: {score_3}')
+                    self.score_lb3 = tk.Label(self, height = 2, width = 18, bg = 'skyblue', textvariable = self.score_variable_3, font=('Arial', 12))
+                    self.score_lb3.place(x = 280, y = 290)                                                    
+                elif n == 4:
+                    score_4 -= 2
+                    if chooseplayerdict['player4'] == ' ★ ':
+                        self.score_variable_4 = tk.StringVar(self, f'★ credits: {score_4}')
+                    elif chooseplayerdict['player4'] == ' ❤ ':
+                        self.score_variable_4 = tk.StringVar(self, f'❤ credits: {score_4}')
+                    elif chooseplayerdict['player4'] == ' ✿ ':
+                        self.score_variable_4 = tk.StringVar(self, f'✿ credits: {score_4}')
+                    elif chooseplayerdict['player4'] == ' 😀 ':
+                        self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
+                    self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
+                    self.score_lb4.place(x = 280, y = 340)
+            penalty = False  # 把penalty改回來
+
     def create_widgets(self):  # 接遊戲開始後的畫面
 
         # 外圈圖片
