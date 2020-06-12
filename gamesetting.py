@@ -181,7 +181,7 @@ class GameOver(tk.Frame):
         self.space = tk.Label(self, height = 1, width = 1, text = ' ')
         self.gameoverpng = ImageTk.PhotoImage(file='gameover.png')
         self.gameover = tk.Label(self, height = 130, width = 700, image = self.gameoverpng)#GameOver的圖片
-        self.restartbtn = tk.Button(self, text = '重新開始！', bg = 'black', font = font1, command = self.restart_new_game)
+        self.restartbtn = tk.Button(self, text = '重新開始！', font = font1, command = self.restart_new_game)
 
         # 指定位置
         self.gameover.grid(row = 41, column = 0, columnspan = 80, rowspan = 20)
@@ -323,7 +323,16 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
         self.buttonB = tk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "B", command = self.click_buttonB)
         self.buttonC = tk.Button(self, height = 4, width = 6, bg = "sky blue2", fg='white', font = "20", text = "C", command = self.click_buttonC)
         self.buttonD = tk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "D", command = self.click_buttonD)
-        self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = self.text)
+        global player, n
+        print(player)
+        if player == 1:
+            self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = 'Player1:\n\n'+self.text)
+        elif player == 2:
+            self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = 'Player2:\n\n'+self.text)
+        elif player == 3:
+            self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = 'Player3:\n\n'+self.text)
+        else:
+            self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = 'Player4:\n\n'+self.text)
         self.buttonA.grid(row = 1, column = 0, sticky = tk.NE + tk.SW)
         self.buttonB.grid(row = 1, column = 1, sticky = tk.NE + tk.SW)
         self.buttonC.grid(row = 1, column = 2, sticky = tk.NE + tk.SW)
@@ -404,7 +413,14 @@ class ChanceDestinyWindow(tk.Toplevel):  # 彈出機會命運的視窗
         self.root = root
 
     def createWidgets(self):
-        self.lbChance = tk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = self.text)
+        if player == 1:
+            self.lbChance = tk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = 'Player1:\n\n'+self.text)
+        elif player == 2:
+            self.lbChance = tk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = 'Player2:\n\n'+self.text)
+        elif player == 3:
+            self.lbChance = tk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = 'Player3:\n\n'+self.text)
+        else:
+            self.lbChance = tk.Label(self, height = 15, width = 55, bg='pink2', fg='white', font = "20", text = 'Player4:\n\n'+self.text)
         self.buttonSure = tk.Button(self, height = 2, width = 5,  bg='pink3', fg='white', font = "20", text = "確認", command = self.click_buttonSure)
         self.buttonSure.grid(row = 1, column = 0, sticky = tk.NE + tk.SW)
         self.lbChance.grid(row = 0, column = 0, sticky = tk.NE + tk.SW)
