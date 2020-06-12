@@ -47,6 +47,7 @@ class Window(tk.Frame):
         self.chooseplayer4 = ttk.Combobox(self, values = playerlist, state = 'readonly')
         self.chooseplayer4.bind('<<ComboboxSelected>>', self.comboclick4)
         self.startbtn = tk.Button(self, text = '開始！', font = font1, command = self.start)  # 開始的按鈕
+        self.gamerulebtn = tk.Button(self, text = '遊戲規則', font = font1, command = self.viewgamerule)  # 遊戲規則的按鈕
         self.warning = tk.Label(self, height = 1, width = 50, font = font1, text = "請重新選擇玩家(因重複選取或未選取)", bg = 'red4', fg = 'white')
 
         #指定位置
@@ -59,6 +60,7 @@ class Window(tk.Frame):
         self._3p.grid(row = 13, column = 3, sticky = full)
         self._4p.grid(row = 13, column = 4, sticky = full)
         self.startbtn.grid(row = 25, column = 2, columnspan = 1)
+        self.gamerulebtn.grid(row = 25, column = 3)
         self.space.grid(row = 12, column = 0, rowspan = 1)
         self.space2.grid(row = 30, column = 6, columnspan = 3)
 
@@ -123,21 +125,10 @@ class Window(tk.Frame):
             else:
                 return True
 
-        # if n == 2:
-            # if len(chooseplayerdict) != 2:
-                # return False
-            # else:
-                # return True
-        # elif n == 3:
-            # if len(chooseplayerdict) != 3:
-                # return False
-            # else:
-                # return True
-        # else:  # n == 4
-            # if len(chooseplayerdict) != 4:
-                # return False
-            # else:
-                # return True
+    def viewgamerule(self):
+        global GAMERULE
+        GAMERULE = GameRuleWindow()
+        GAMERULE.mainloop()
 
     def start(self):  # 開始遊戲的指令
         if self.check_repeated_and_empty(chooseplayerdict) == True:
@@ -148,6 +139,32 @@ class Window(tk.Frame):
         else:
             self.warning.grid(row = 27, column = 1, columnspan = 5)
 
+
+class GameRuleWindow(tk.Toplevel):  # 遊戲規則的視窗
+    def __init__(self):
+        tk.Toplevel.__init__(self)
+        self.grid()
+        self.create_widgets()
+
+    def create_widgets(self):
+        font1 = tkfont.Font(size = 18, family = "Arial")
+        font2 = tkfont.Font(size = 22, family = "Arial", weight = 'bold')
+        png = Image.open('gamerule.png')
+        png = png.resize((179, 53), Image.ANTIALIAS)
+        self.png1 = ImageTk.PhotoImage(png)
+        self.title = tk.Label(self, height = 100, width = 600, image = self.png1)#遊戲規則
+        self.intro = tk.Label(self, height = 1, width = 70, font = font2, text = '這是一款大富翁遊戲，玩家們將進入台大並以獲得20學分為目標，開始搶救學分大作戰！')
+        self.lb1 = tk.Label(self, height = 1, width = 54, font = font1, text = '1. 遊戲開始前，請各位玩家先選擇人數以及各自代表的符號（不重複）')
+        self.lb2 = tk.Label(self, height = 1, width = 45, font = font1, text = '2. 以校門口為起點，玩家們依序擲骰子進行遊戲（ROLL）')
+        self.lb3 = tk.Label(self, height = 1, width = 78, font = font1, text = '3. 到達各地點後，必須回答問題才能獲得學分，回答完畢必須更新才能拿到學分並繼續遊戲（UPDATE）')
+        self.lb4 = tk.Label(self, height = 1, width = 29, font = font1, text = '4. 先獲得20學分者獲勝，並結束遊戲')
+
+        self.title.grid(row = 0, column = 20)
+        self.intro.grid(row = 2, column = 0, columnspan = 70)
+        self.lb1.grid(row = 3, column = 0, columnspan = 54, sticky = tk.W)
+        self.lb2.grid(row = 4, column = 0, columnspan = 45, sticky = tk.W)
+        self.lb3.grid(row = 5, column = 0, columnspan = 78, sticky = tk.W)
+        self.lb4.grid(row = 6, column = 0, columnspan = 29, sticky = tk.W)
 '''
 class Warning(tk.Frame):
     def __init__(self):
