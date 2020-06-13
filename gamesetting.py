@@ -205,24 +205,6 @@ class GameOverWindow(tk.Frame):
         newgame = Window()  # 開始新的遊戲
         newgame.mainloop()
 
-'''
-class Warning(tk.Frame):
-    def __init__(self):
-        tk.Frame.__init__(self)
-        self.grid()
-        self.create_widgets()
-    def create_widgets(self):
-        font1 = tkfont.Font(size = 24, family = "Hei")
-        self.lb = tk.Label(self, height = 3, width = 50, font = font1, text = "請重新選擇玩家\n(因重複選取或未選取)")
-        self.btn = tk.Button(self, text = '確定', font = font1, command = self.confirm)
-        full = tk.NE + tk.SW
-        self.lb.grid(row = 1, column = 1, sticky = full)
-        self.btn.grid(row = 3, column = 1, sticky = full)
-
-    def confirm(self):
-        warning.destroy()
-'''
-
 
 class Problems:
     def __init__(self):  # 題庫
@@ -856,15 +838,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         place_list = ['校門\n\n', '管院\n\n', '小福\n\n', '新體\n\n', '法學院\n\n', '文學院\n\n', '電資學院\n\n',
                     '活大\n\n', '機會/命運\n\n', '社科院\n\n', '理學院\n\n', '醫學院\n\n', '宿舍\n\n',
                     '計中\n\n', '總圖\n\n', '醉月湖\n\n', '傅鐘\n\n', '水源校區\n\n']
-        # for i in place_list:
-            # if chooseplayerdict['player1'] in i:
-                # i -= chooseplayerdict['player1']
-            # if chooseplayerdict['player2'] in i:
-                # i -= chooseplayerdict['player2']
-            # if chooseplayerdict['player3'] in i:
-                # i -= chooseplayerdict['player3']
-            # if chooseplayerdict['player3'] in i:
-                # i -= chooseplayerdict['player3']
+
         if n >=2:
             self.player_move('player1')
             self.player_move('player2')
@@ -975,12 +949,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
         
         self.update_score_button = tk.Button(self, text = "UPDATE", height = 3, width = 7, foreground = "white", bg = "skyblue", font=('Arial', 12), command = lambda:[self.change_score(), self.activate_dice()])
         self.update_score_button.place(x = 460, y = 280)
-        
-        # pass
-        #以下測試用
-        #self.png1 = ImageTk.PhotoImage(file='1.png')
-        #self.lb1 = tk.Label(self, height = 200, width = 450, image = self.png1, bg = 'black')#台大大富翁
-        #self.lb1.grid(row = 40, column = 0, columnspan = 5)
+
         
 mywindow = Window()
 mywindow.master.title("台大大富翁")
