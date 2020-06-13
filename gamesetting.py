@@ -169,7 +169,7 @@ class GameRuleWindow(tk.Toplevel):  # 遊戲規則的視窗
 '''
 遊戲結束的畫面
 '''
-class GameOver(tk.Frame):
+class GameOverWindow(tk.Frame):
     def __init__(self):
         tk.Frame.__init__(self)
         self.grid()
@@ -181,12 +181,22 @@ class GameOver(tk.Frame):
         self.space = tk.Label(self, height = 1, width = 1, text = ' ')
         self.gameoverpng = ImageTk.PhotoImage(file='gameover.png')
         self.gameover = tk.Label(self, height = 130, width = 700, image = self.gameoverpng)#GameOver的圖片
+        if score_1 >= 20:
+            winner = 'The winner is PLAYER 1 !'
+        elif score_2 >= 20:
+            winner = 'The winner is PLAYER 2 !'
+        elif score_3 >= 20:
+            winner = 'The winner is PLAYER 3 !'
+        else:
+            winner = 'The winner is PLAYER 4 !'
+        self.winner = tk.Label(self, height = 1, width = 40, font = font1, text = winner)
         self.restartbtn = tk.Button(self, text = '重新開始！', font = font1, command = self.restart_new_game)
 
         # 指定位置
-        self.gameover.grid(row = 41, column = 0, columnspan = 80, rowspan = 20)
-        self.restartbtn.grid(row = 90, column = 40, columnspan = 1)
-        self.space.grid(row = 88, column = 0, rowspan = 1)
+        self.gameover.grid(row = 0, column = 0, columnspan = 40, rowspan = 5)
+        self.winner.grid(row = 6, column = 10, columnspan = 10)
+        self.restartbtn.grid(row = 9, column = 15, columnspan = 1)
+        self.space.grid(row = 8, column = 0, rowspan = 1)
 
         # 定義command
     def restart_new_game(self):
@@ -542,7 +552,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                 if score_1 >= 20:
                     newframe.destroy()
                     global GAMEOVER
-                    GAMEOVER = GameOver()
+                    GAMEOVER = GameOverWindow()
                     GAMEOVER.mainloop()
             
             elif player == 3:
@@ -559,8 +569,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                 self.score_lb2.place(x = 280, y = 240)
                 if score_2 >= 20:
                     newframe.destroy()
-                    #global GAMEOVER
-                    GAMEOVER = GameOver()
+                    GAMEOVER = GameOverWindow()
                     GAMEOVER.mainloop()
 
             elif player == 4:
@@ -577,8 +586,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                 self.score_lb3.place(x = 280, y = 290)
                 if score_3 >= 20:
                     newframe.destroy()
-                    #global GAMEOVER
-                    GAMEOVER = GameOver()
+                    GAMEOVER = GameOverWindow()
                     GAMEOVER.mainloop()
             elif player == 1:
                 if n == 2:
@@ -595,8 +603,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_lb2.place(x = 280, y = 240)
                     if score_2 >= 20:
                         newframe.destroy()
-                        #global GAMEOVER
-                        GAMEOVER = GameOver()
+                        GAMEOVER = GameOverWindow()
                         GAMEOVER.mainloop()
                 elif n == 3:
                     score_3 += 2
@@ -612,8 +619,7 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                     self.score_lb3.place(x = 280, y = 290)
                     if score_3 >= 20:
                         newframe.destroy()
-                        #global GAMEOVER
-                        GAMEOVER = GameOver()
+                        GAMEOVER = GameOverWindow()
                         GAMEOVER.mainloop()
                 elif n == 4:
                     score_4 += 2
@@ -627,10 +633,9 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
                         self.score_variable_4 = tk.StringVar(self, f'😀 credits: {score_4}')
                     self.score_lb4 = tk.Label(self, height = 2, width = 18, bg = 'pink2', textvariable = self.score_variable_4, font=('Arial', 12))
                     self.score_lb4.place(x = 280, y = 340)
-                    if score_1 >= 20:
+                    if score_4 >= 20:
                         newframe.destroy()
-                        #global GAMEOVER
-                        GAMEOVER = GameOver()
+                        GAMEOVER = GameOverWindow()
                         GAMEOVER.mainloop()
             result = False  # 把result改回來
         elif penalty == True:
