@@ -119,11 +119,13 @@ class Window(tk.Frame):
 
     def check_repeated_and_empty(self, chooseplayerdict):
         players = list(chooseplayerdict.values())
+        checklist = []
         for i in players:
-            if players.count(i) != 1 or len(players) != n:
-                return False
-            else:
-                return True
+            checklist.append(players.count(i))
+        if sum(checklist) != n:
+            return False
+        else:
+            return True
 
     def viewgamerule(self):
         global GAMERULE
@@ -358,7 +360,6 @@ class ProblemWindow(tk.Toplevel):  # 彈出問題的視窗
         self.buttonC = tk.Button(self, height = 4, width = 6, bg = "sky blue2", fg='white', font = "20", text = "C", command = self.click_buttonC)
         self.buttonD = tk.Button(self, height = 4, width = 6, bg = "sky blue3", fg='white', font = "20", text = "D", command = self.click_buttonD)
         global player, n
-        print(player)
         if player == 1:
             self.lbProblem = tk.Label(self, height = 15, width = 55, bg='sky blue', fg='white', font = "20", text = 'Player1:\n\n'+self.text)
         elif player == 2:
@@ -536,7 +537,6 @@ class NewFrame(tk.Frame):  # 遊戲開始的畫面
             player += 1
         if player > n:
             player = 1
-        print(player_loc_dict)
         self.label = tk.Label(self, text = self.steps, font = ("Helvetica", 120))
         self.label.place(x = 570, y = 200)
         dice_availible = False  # 不能按骰子
