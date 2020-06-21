@@ -122,7 +122,7 @@ class Window(tk.Frame):
         checklist = []
         for i in players:
             checklist.append(players.count(i))
-        if sum(checklist) != n:
+        if sum(checklist) != n or len(players) != n:
             return False
         else:
             return True
